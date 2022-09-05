@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-config
+  namespace: {{ .Release.Namespace | default "default"}}
+  labels:
+    app: keycloak
+data:
+  KC_DB_NAME: {{ .Values.keycloak.db.name }}
+  KC_HOSTNAME_STRICT: "false"
+  KC_HTTP_RELATIVE_PATH: /auth
+  KC_PROXY: "edge"
+  KEYCLOAK_ADMIN_USER: {{ .Values.keycloak.user}}
+  PROXY_ADDRESS_FORWARDING: "true"
+  KEYCLOAK_LOGLEVEL: "INFO"

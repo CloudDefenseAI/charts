@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  selector:
+    matchLabels:
+      app: keycloak
+  replicas: {{ .Values.keycloak.replicas }}
+  template:
+    metadata:
+      labels:
+        app: keycloak
+      annotations:
+        diun.enable: "true"
+    spec:
+      {{- if .Values.keycloak.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.keycloak.nodeSelector }}
+      {{- end }}
+      {{- if .Values.keycloak.tolerations }}
+      tolerations:
+{{ toYaml .Values.keycloak.tolerations | indent 8 }}
+      {{- end }}
+      containers:
+      - name: keycloak
+        image: {{ .Values.keycloak.image }}:{{ .Values.keycloak.version }}
+        command: ["/opt/keycloak/bin/kc.sh", "start-dev"] # Docker entrypoint equivalent
+        # workingDir: "/checklist" # Docker working_dir equivalent
+        # args:
+        # - -Dkeycloak.profile.feature.upload_scripts=enabled
+        env:
+        - name: KC_DB_URL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_ADDR
+        - name: KC_DB
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_VENDOR
+        - name: KC_DB_URL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_PORT
+        - name: KC_DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_USER
+        - name: KC_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cdefense-secrets
+              key: DB_PASSWORD
+        - name: KC_DB_URL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: keycloak-config
+              key: KC_DB_NAME
+        - name: KEYCLOAK_ADMIN
+          valueFrom:
+            configMapKeyRef:
+              name: keycloak-config
+              key: KEYCLOAK_ADMIN_USER
+        - name: KC_LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: keycloak-config
+              key: KEYCLOAK_LOGLEVEL
+        - name: KC_HOSTNAME_STRICT
+          valueFrom:
+            configMapKeyRef:
+              name: keycloak-config
+              key: KC_HOSTNAME_STRICT
+        - name: KC_HTTP_RELATIVE_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: keycloak-config
+              key: KC_HTTP_RELATIVE_PATH
+        - name: KC_PROXY
+          valueFrom:
+            configMapKeyRef:
+              name: keycloak-config
+              key: KC_PROXY
+        - name: PROXY_ADDRESS_FORWARDING
+          valueFrom:
+            configMapKeyRef:
+              name: keycloak-config
+              key: PROXY_ADDRESS_FORWARDING
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-secrets
+              key: KEYCLOAK_ADMIN_PASSWORD
+        ports:
+        - containerPort: 8080
+   #     resources:
+   #       requests:
+   #         memory: "0.5G"
+   #         cpu: "250m"
+   #       limits:
+   #         memory: "1G"
+   #         cpu: "500m"
+      initContainers:
+        - name: check-db
+          image: postgres:14
+          imagePullPolicy: IfNotPresent
+          command: 
+            - sh
+            - -c
+            - until pg_isready -h db -p 5432; do echo waiting for database; sleep 5; done;
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+---
+{{ if .Values.keycloak.autoscaling.enabled }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: keycloak
+  labels:
+    keycloak
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefuleSet
+    name: keycloak
+  minReplicas: {{ .Values.keycloak.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.keycloak.autoscaling.maxReplicas }}
+  metrics:
+    {{ if .Values.keycloak.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: {{ .Values.keycloak.autoscaling.targetCPUUtilizationPercentage }}
+    {{ end }}
+    {{ if .Values.keycloak.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: {{ .Values.keycloak.autoscaling.targetMemoryUtilizationPercentage }}
+    {{ end }}
+{{ end }}

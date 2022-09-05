@@ -1,0 +1,203 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authservice
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  selector:
+    matchLabels:
+      app: authservice
+  replicas: {{ .Values.authservice.replicas }}
+  template:
+    metadata:
+      labels:
+        app: authservice
+      annotations:
+        diun.enable: "true"
+    spec:
+      {{- if .Values.authservice.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.authservice.nodeSelector }}
+      {{- end }}
+      {{- if .Values.authservice.tolerations }}
+      tolerations:
+{{ toYaml .Values.authservice.tolerations | indent 8 }}
+      {{- end }}
+      imagePullSecrets:
+      - name: regcred
+      containers:
+        - name: authservice
+          image: {{ .Values.authservice.image }}:{{ .Values.version }}
+          env:
+          - name: SENTRY_ENV
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: SENTRY_ENV
+          - name: CLOUDDEFENSE_BASE_DOMAIN
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: CLOUDDEFENSE_BASE_DOMAIN
+          - name: CLOUDDEFENSE_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: CLOUDDEFENSE_BASE_URL
+          - name: CLOUDDEFENSE_AUTH_KEYCLOAK_URL 
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: CLOUDDEFENSE_KEYCLOAK_URL
+          - name: CLOUDDEFENSE_AUTH_KEYCLOAK_REALM_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: CLOUDDEFENSE_AUTH_KEYCLOAK_REALM_KEY
+          - name: CLOUDDEFENSE_HEROKUAPP_GRAPHQL_URL
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: CLOUDDEFENSE_GRAPHQL_URL
+          - name: CLOUDDEFENSE_API_URL
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: CLOUDDEFENSE_API_URL
+          - name: CLOUDDEFENSE_AUTH_KEYCLOAK_ADMIN_USER 
+            valueFrom:
+              configMapKeyRef:
+                name: keycloak-config
+                key: KEYCLOAK_ADMIN_USER
+          - name: CLOUDDEFENSE_AUTH_KEYCLOAK_ADMIN_PASSWORD # secret, keycloak
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-secrets
+                key: KEYCLOAK_ADMIN_PASSWORD
+          - name: CLOUDDEFENSE_AUTH_KEYCLOAK_ADMIN_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-secrets
+                key: KEYCLOAK_ADMIN_CLIENT_SECRET
+          - name: MICRONAUT_ENVIRONMENTS
+            valueFrom:
+              configMapKeyRef:
+                name: authservice-config
+                key: MICRONAUT_ENVIRONMENTS
+          - name: CLOUDDEFENSE_AUTH_DEPLOYMENT_MODE_DOCKER
+            valueFrom:
+              configMapKeyRef:
+                name: authservice-config
+                key: AUTH_DEPLOYMENT_MODE_DOCKER
+          - name: CLOUDDEFENSE_EMAIL_SENDGRID_KEY
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: SENDGRID_KEY
+                optional: true
+          - name: GITHUB_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: GITHUB_CLIENT_ID
+                optional: true
+          - name: GITHUB_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: GITHUB_CLIENT_SECRET
+                optional: true
+          - name: GITLAB_APPLICATION_ID
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: GITLAB_APPLICATION_ID
+                optional: true
+          - name: GITLAB_APPLICATION_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: GITLAB_APPLICATION_SECRET
+                optional: true
+          - name: GOOGLE_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: GOOGLE_CLIENT_ID
+                optional: true
+          - name: GOOGLE_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: GOOGLE_CLIENT_SECRET
+                optional: true
+          - name: BITBUCKET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: BITBUCKET_KEY
+                optional: true
+          - name: BITBUCKET_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: BITBUCKET_SECRET
+                optional: true
+          - name: MICROSOFT_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: MICROSOFT_CLIENT_ID
+                optional: true
+          - name: MICROSOFT_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: authservice-secrets
+                key: MICROSOFT_CLIENT_SECRET
+                optional: true
+          - name: CLOUDDEFENSE_HASURA_ADMIN_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: graphql-secrets
+                key: HASURA_GRAPHQL_ADMIN_SECRET
+          ports:
+          - containerPort: 8080
+        #  resources:
+        #    requests:
+        #      memory: "1G"
+        #      cpu: "500m"
+        #    limits:
+        #      memory: "2G"
+        #      cpu: "1"
+      initContainers:
+        - name: check-keycloak-pod
+          image: bitnami/kubectl:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - while [ "$(kubectl get pod -l app='keycloak' -o jsonpath='{.items[0].status.phase}')" != "Running" ]; do echo "waiting for keycloak to be ready."; sleep 10; done
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - name: check-keycloak # WARNING checks logs of the keycloak pod for "Listening on" as such likelier to break as result if developer change the keycloak pod logs
+          image: bitnami/kubectl:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - POD=$(kubectl get pod -l app=keycloak -o jsonpath="{.items[0].metadata.name}") && until kubectl logs $POD|grep "Listening on"; do echo "waiting for authservice"; sleep 10; done; echo connection to keycloak ok 
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - name: check-db
+          image: postgres:14
+          imagePullPolicy: IfNotPresent
+          command: 
+            - sh
+            - -c
+            - until pg_isready -h db -p 5432; do echo waiting for database; sleep 5; done;
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File

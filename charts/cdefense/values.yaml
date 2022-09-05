@@ -1,0 +1,279 @@
+version: "release-4.5.0"
+domain: clouddefenseai.com
+hostname: console.clouddefenseai.com
+
+cluster:
+  type: eks
+  region: us-west-2
+  zones: |
+    [ 'us-west-2a', 'us-wes-2b', 'us-wes-2c' ]
+
+SSL:
+  enabled: true
+
+ingress:
+  type: "alb"
+  alb:
+    scheme: internet-facing
+
+aws:
+  certificatearn: arn:aws:acm:us-west-2:407638845061:certificate/9bb8e128-f98f-45aa-8178-01c042e423c4
+
+sentry:
+  env: prod
+
+uptime:
+  nodeSelector: external
+  tolerations: []
+  enabled: true
+  hostname: status.clouddefenseai.com
+
+db:
+  nodeSelector: db
+  tolerations: []
+  type: "external"
+  replicas: 1
+  image: postgres
+  version: "14"
+  user: "postgres"
+  name: "cdefense"
+  external:
+    host:
+      name: "cdefense-prod.cesnibgfe9ht.us-west-2.rds.amazonaws.com"
+    secondary:
+      host:
+        name: "cdefense-prod-reader.cesnibgfe9ht.us-west-2.rds.amazonaws.com"
+  service:
+    type: NodePort
+    ports:
+    - port: 5432
+      targetPort: 5432
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+keycloak:
+  nodeSelector: auth
+  tolerations: []
+  replicas: 1
+  image: quay.io/keycloak/keycloak
+  version: "18.0.0"
+  db:
+    name: keycloak
+  user: authadmin
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+authservice:
+  nodeSelector: auth
+  tolerations: []
+  replicas: 1
+  image: cdefense/auth-service
+  environment: dev
+  realm: cdefense
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+
+graphql:
+  nodeSelector: api
+  tolerations: []
+  image: cdefense/graphql
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+
+api:
+  nodeSelector: api
+  tolerations: []
+  image: cdefense/scan-api
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  fullscan:
+    image: cdefense/fullscan:prod
+  data:
+    region: us-east-1
+    bucket: cdefense-vulnerability-data-new
+    endpoint: https://cdefense-vulnerability-data-new.s3.us-east-1.amazonaws.com
+  logs:
+    region: us-west-2
+    bucket: cdefense-cli-logs
+  job:
+    nodeSelector:
+      key: label
+      value: job
+
+data:
+  nodeSelector: api
+  tolerations: []
+  image: cdefense/scan-data
+
+newapi:
+  nodeSelector: api
+  tolerations: []
+  replicas: 1
+  image: cdefense/new-api
+  version: "latest"
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+alertservice:
+  nodeSelector: api
+  tolerations: []
+  replicas: 1
+  image: cdefense/alert-service
+  version: "latest"
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+recommendation:
+  hostname: recommendation.clouddefenseai.com
+  nodeSelector: api
+  tolerations: []
+  replicas: 1
+  image: cdefense/recommendation-service
+  version: "latest"
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+web:
+  nodeSelector: web
+  tolerations: []
+  replicas: 1
+  image: cdefense/webconsole
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 80
+
+admin:
+  backend:
+    nodeSelector: auth
+    tolerations: []
+    replicas: 1
+    image: cdefense/admin-be-service
+    version: "latest"
+    service:
+      type: NodePort
+      ports:
+      - name: http
+        port: 80
+        targetPort: 8080
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 80
+      targetMemoryUtilizationPercentage: 80
+  frontend:
+    nodeSelector: web
+    tolerations: []
+    replicas: 1
+    image: cdefense/admin-ui-fe
+    version: "latest"
+    service:
+      type: NodePort
+      ports:
+      - name: http
+        port: 80
+        targetPort: 80
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 80
+      targetMemoryUtilizationPercentage: 80
+
+acs:
+  enabled: false
+  backend:
+    nodeSelector: api
+    tolerations: []
+    replicas: 1
+    image: cdefense/acs
+    version: "latest"
+    service:
+      type: NodePort
+      ports:
+      - name: http
+        port: 80
+        targetPort: 8080
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 80
+      targetMemoryUtilizationPercentage: 80
+  frontend:
+    nodeSelector: web
+    tolerations: []
+    replicas: 1
+    image: cdefense/acs_fe
+    version: "latest"
+    service:
+      type: NodePort
+      ports:
+      - name: http
+        port: 80
+        targetPort: 4200
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 3
+      targetCPUUtilizationPercentage: 80
+      targetMemoryUtilizationPercentage: 80

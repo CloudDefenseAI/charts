@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authservice-config
+  labels:
+    app: keycloak
+data:
+  MICRONAUT_ENVIRONMENTS: {{ .Values.authservice.environment | default "dev"  }}
+  AUTH_DEPLOYMENT_MODE_DOCKER: "true"

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendation
+  labels:
+    app: recommendation
+spec:
+  type: {{ .Values.recommendation.service.type }}
+  selector:
+    app: recommendation
+  ports:
+    {{ .Values.recommendation.service.ports | toYaml | nindent 2 }}

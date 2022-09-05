@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scan-server-config
+  namespace: {{ .Release.Namespace | default "default"}}
+  labels:
+    app: api
+data:
+  FULL_SCAN_DOCKER_IMAGE: {{ .Values.api.fullscan.image }}
+  KUBERNETES_NODESELECTOR_KEY: {{ .Values.api.job.nodeSelector.key }}
+  KUBERNETES_NODESELECTOR_VALUE: {{ .Values.api.job.nodeSelector.value }}
+  DATA_VFEED_SQLITE_FULL_REFRESH_CRON_EXPRESSION: "0 */2 * * *"
+  CVE_LOOKUP_DB_TYPE: VFEED
+  KEYCLOAK_ENABLED: "true"
+  MICRONAUT_SECURITY_ENABLED: "true"
+  MICRONAUT_SECURITY_TOKEN_JWT_BEARER_ENABLED: "true"
+  KAFKA_SERVERS: "kafka:9092"
+  MICRONAUT_SECURITY_ENABLED: "true"
+  MICRONAUT_SECURITY_TOKEN_JWT_BEARER_ENABLED: "true"
+  AWS_S3_REGION: {{ .Values.api.data.region }}
+  AWS_S3_BUCKET: {{ .Values.api.data.bucket }}
+  AWS_S3_ENDPOINT: {{ .Values.api.data.endpoint }}
+  AWS_SCAN_S3_REGION: {{ .Values.api.logs.region }}
+  AWS_SCAN_S3_BUCKET: {{ .Values.api.logs.bucket }}

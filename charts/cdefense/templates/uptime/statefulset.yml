@@ -1,0 +1,62 @@
+{{ if .Values.uptime.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: uptime
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uptime
+  serviceName: uptime
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: uptime
+    spec:
+      {{- if .Values.uptime.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.uptime.nodeSelector }}
+      {{- end }}
+      {{- if .Values.uptime.tolerations }}
+      tolerations:
+{{ toYaml .Values.uptime.tolerations | indent 8 }}
+      {{- end }}
+      volumes:
+        - name: uptime
+          persistentVolumeClaim:
+            claimName: uptime
+      containers:
+      - name: uptime
+        image: louislam/uptime-kuma:latest
+        ports:
+          - containerPort: 3001
+        volumeMounts:
+        - mountPath: "/app/data"
+          name: uptime
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: uptime
+      labels:
+        app: uptime
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{ if eq .Values.cluster.type "minikube" }}
+      storageClassName: standard
+      {{ else if eq .Values.cluster.type "eks" }}
+      storageClassName: standard
+      {{ else if eq .Values.cluster.type "gke" }}
+      storageClassName: standard
+      {{ end }}
+      resources:
+        requests:
+          storage: 100Mi
+      volumeMode: Filesystem
+{{ end }}

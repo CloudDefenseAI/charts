@@ -1,0 +1,92 @@
+# 1. Create a service account
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: job-cleanup-sa
+  namespace: default # namespace where the service account will be created
+
+---
+# 2. Create a role
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default # namespace where the role will be created
+  name: jobs-cleanup-role
+rules:
+  - apiGroups: ["*"]
+    resources: ["jobs"]
+    verbs: ["list", "delete"]
+
+---
+# 3. Attach the role to the service account
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jobs-cleanup-rolebinding
+  namespace: default # namespace where the role will be created
+roleRef:
+  apiGroup: ""
+  kind: Role
+  name: jobs-cleanup-role
+subjects:
+  - kind: ServiceAccount
+    name: job-cleanup-sa
+    namespace: default # namespace where the service account will be created
+    apiGroup: ""
+
+# ---
+# # 4. Create a cronjob (with a crontab schedule) using the service account to check for completed jobs
+
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: completed-jobs-cleanup
+#   namespace: default # namespace where the cronjob will be created
+# spec:
+#   schedule: "*/10 * * * *"
+#   successfulJobsHistoryLimit: 0 # default 3
+#   failedJobsHistoryLimit: 0 # default 1
+#   # The .spec.successfulJobsHistoryLimit and .spec.failedJobsHistoryLimit fields are optional
+#   # A limit of 0 corresponds to keeping none of the corresponding kind of jobs after completion
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#           serviceAccountName: job-cleanup-sa
+#           containers:
+#           - name: kubectl-container
+#             image: bitnami/kubectl:latest
+#             command: ["/bin/sh", "-c"]
+#             args:
+#               - kubectl delete jobs --field-selector status.successful=1
+#           restartPolicy: Never
+
+---
+# 5. create a cronjob (with a crontab schedule) using the service account to check for running jobs that are stuck
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: stuck-jobs-cleanup
+  namespace: default # namespace where the cronjob will be created
+spec:
+  schedule: "1 */1 * * *"
+  successfulJobsHistoryLimit: 1 # default 3
+  failedJobsHistoryLimit: 1 # default 1
+  # The .spec.successfulJobsHistoryLimit and .spec.failedJobsHistoryLimit fields are optional
+  # A limit of 0 corresponds to keeping none of the corresponding kind of jobs after completion
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: job-cleanup-sa
+          containers:
+            - name: kubectl-container
+              image: bitnami/kubectl:latest
+              command: ["/bin/sh", "-c"]
+              args:
+                - kubectl get job -o json | jq -r --argjson timestamp 5400 '.items[] | select (.metadata.creationTimestamp | sub("\\..*";"Z") | sub("\\s";"T") | fromdate < now - $timestamp).metadata.name'| xargs -r -L1 kubectl delete job
+          restartPolicy: Never

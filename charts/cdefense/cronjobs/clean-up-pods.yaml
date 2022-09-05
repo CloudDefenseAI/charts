@@ -1,0 +1,91 @@
+# 1. Create a service account
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pod-cleanup-sa
+  namespace: default
+
+---
+# 2. Create a role
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: pods-cleanup-role
+rules:
+  - apiGroups: ["*"]
+    resources: ["pods"]
+    verbs: ["list", "delete"]
+
+---
+# 3. Attach the role to the service account
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pods-cleanup-rolebinding
+  namespace: default
+roleRef:
+  apiGroup: ""
+  kind: Role
+  name: pods-cleanup-role
+subjects:
+  - kind: ServiceAccount
+    name: pod-cleanup-sa
+    namespace: default
+    apiGroup: ""
+
+# ---
+# # 4. Create a cronjob (with a crontab schedule) using the service account to check for completed pods
+
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: completed-pods-cleanup
+#   namespace: default
+# spec:
+#   schedule: "*/10 * * * *"
+#   successfulJobsHistoryLimit: 0 # default 3
+#   failedJobsHistoryLimit: 0 # default 1
+#   # The .spec.successfulJobsHistoryLimit and .spec.failedJobsHistoryLimit fields are optional
+#   # A limit of 0 corresponds to keeping none of the corresponding kind of jobs after completion
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#           serviceAccountName: completed-pod-cleanup-sa
+#           containers:
+#           - name: kubectl-container
+#             image: bitnami/kubectl:latest
+#             command: ["sh", "-c", "kubectl delete pod --field-selector=status.phase==Succeeded"]
+#           restartPolicy: Never
+
+---
+# 5. create a cronjob (with a crontab schedule) using the service account to check for pods stuck in terminating state
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: stuck-pods-cleanup
+  namespace: default # namespace where the cronjob will be created
+spec:
+  schedule: "*/10 * * * *"
+  successfulJobsHistoryLimit: 1 # default 3
+  failedJobsHistoryLimit: 1 # default 1
+  # The .spec.successfulJobsHistoryLimit and .spec.failedJobsHistoryLimit fields are optional
+  # A limit of 0 corresponds to keeping none of the corresponding kind of jobs after completion
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: pod-cleanup-sa
+          containers:
+            - name: kubectl-container
+              image: bitnami/kubectl:latest
+              command: ["/bin/sh", "-c"]
+              args:
+                - delpods=$(kubectl get pods | grep -i 'Terminating' | awk '{print $1}')
+                - for i in ${delpods[@]}; do kubectl delete pod $i --force=true --wait=false --grace-period=0; done
+          restartPolicy: Never

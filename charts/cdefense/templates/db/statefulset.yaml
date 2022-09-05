@@ -1,0 +1,137 @@
+---
+{{ if eq .Values.db.type "internal" }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: db
+  serviceName: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+      annotations:
+        diun.enable: "true"
+    spec:
+      {{- if .Values.db.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.db.nodeSelector }}
+      {{- end }}
+      {{- if .Values.db.tolerations }}
+      tolerations:
+{{ toYaml .Values.db.tolerations | indent 8 }}
+      {{- end }}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+      containers:
+        - name: db
+          image: {{ .Values.db.image }}:{{ .Values.db.version }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: cdefense-config
+                  key: DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cdefense-secrets
+                  key: DB_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: cdefense-config
+                  key: DB_NAME
+          livenessProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            successThreshold: 1
+            tcpSocket:
+              port: 5432
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            successThreshold: 1
+            tcpSocket:
+              port: 5432
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+            - name: dshm
+              mountPath: /dev/shm
+        #  resources:
+        #    requests:
+        #      memory: "1G"
+        #      cpu: "250m"
+        #    limits:
+        #      memory: "2G"
+        #      cpu: "500m"
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{ if eq .Values.cluster.type "minikube" }}
+      storageClassName: standard
+      {{ else if eq .Values.cluster.type "eks" }}
+      storageClassName: gp2
+      {{ else if eq .Values.cluster.type "gke" }}
+      storageClassName: standard
+      {{ else }}
+      storageClassName: standard
+      {{ end }}
+      resources:
+        requests:
+          storage: 100Gi
+      volumeMode: Filesystem
+# ---
+# {{ if .Values.db.autoscaling.enabled }}
+# apiVersion: autoscaling/v1
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: db
+#   labels:
+#     db
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: StatefulSet
+#     name: db
+#   minReplicas: {{ .Values.db.autoscaling.minReplicas }}
+#   maxReplicas: {{ .Values.db.autoscaling.maxReplicas }}
+#   metrics:
+#     {{ if .Values.db.autoscaling.targetCPUUtilizationPercentage }}
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         targetAverageUtilization: {{ .Values.db.autoscaling.targetCPUUtilizationPercentage }}
+#     {{ end }}
+#     {{ if .Values.db.autoscaling.targetMemoryUtilizationPercentage }}
+#     - type: Resource
+#       resource:
+#         name: memory
+#         targetAverageUtilization: {{ .Values.db.autoscaling.targetMemoryUtilizationPercentage }}
+#     {{ end }}
+# {{ end }}
+{{ end }}

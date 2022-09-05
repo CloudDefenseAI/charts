@@ -1,0 +1,37 @@
+---
+{{ if eq .Values.db.type "external" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  type: ExternalName
+  externalName: {{ .Values.db.external.host.name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbsec
+  labels:
+    app: dbsec
+spec:
+  type: ExternalName
+  externalName: {{ .Values.db.external.secondary.host.name }}
+{{ else }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  ports:
+  - port: 5432
+    name: db
+  clusterIP: None
+  selector:
+    app: db
+{{ end }}
+---

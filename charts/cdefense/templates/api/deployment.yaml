@@ -1,0 +1,315 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  selector:
+    matchLabels:
+      app: api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api
+      annotations:
+        diun.enable: "true"
+    spec:
+      {{- if .Values.api.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.api.nodeSelector }}
+      {{- end }}
+      {{- if .Values.api.tolerations }}
+      tolerations:
+{{ toYaml .Values.api.tolerations | indent 8 }}
+      {{- end }}
+      imagePullSecrets:
+      - name: regcred
+      initContainers:
+      - name: check-db
+        image: postgres:14
+        imagePullPolicy: IfNotPresent
+        command: 
+          - sh
+          - -c
+          - until pg_isready -h db -p 5432; do echo waiting for database; sleep 5; done;
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      - name: check-graphql
+        image: radial/busyboxplus:curl
+        imagePullPolicy: IfNotPresent
+        command:
+        - sh
+        - -c
+        - until $(curl --connect-timeout 2 --output /dev/null --silent --fail http://graphql/v1/version);  do
+          echo waiting for graphql; sleep 10; done; echo connection to graphql ok
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      - name: check-seed-pod
+        image: cdefense/scandb-seed:latest
+        # imagePullPolicy: IfNotPresent
+        command:
+          - sh
+          - -c
+          - ./seed_db.sh # 'until pg_isready;  do echo waiting for database; sleep 5; done;/seed_db.sh;'
+        env:
+        - name: PGHOST
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_ADDR
+        - name: PGPORT
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_PORT
+        - name: PGUSER
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_USER
+        - name: PGDATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_NAME
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cdefense-secrets
+              key: DB_PASSWORD
+        resources: {}
+        volumeMounts:
+        - mountPath: /bootstrap
+          name: bootstrap
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      containers:
+      - name: api
+        image: {{ .Values.api.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: cdefense-config
+          - configMapRef:
+              name: scan-server-config
+        env:
+        - name: FULL_SCAN_DOCKER_IMAGE
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: FULL_SCAN_DOCKER_IMAGE
+        - name: KUBERNETES_NODESELECTOR_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: KUBERNETES_NODESELECTOR_KEY
+        - name: KUBERNETES_NODESELECTOR_VALUE
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: KUBERNETES_NODESELECTOR_VALUE
+        - name: KAFKA_SERVERS
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: KAFKA_SERVERS
+        - name: MICRONAUT_SECURITY_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: MICRONAUT_SECURITY_ENABLED
+        - name: MICRONAUT_SECURITY_TOKEN_JWT_BEARER_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: MICRONAUT_SECURITY_TOKEN_JWT_BEARER_ENABLED
+        - name: CLOUDDEFENSE_WEBCONSOLE_HOST_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_WEBCONSOLE_HOST_URL
+        - name: CLOUDDEFENSE_WEBCONSOLE_TERRAFORM_SCAN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_WEBCONSOLE_TERRAFORM_SCAN_URL
+        - name: CLOUDDEFENSE_WEBCONSOLE_KUBERNETES_SCAN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_WEBCONSOLE_KUBERNETES_SCAN_URL
+        - name: CLOUDDEFENSE_WEBCONSOLE_SERVERLESS_SCAN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_WEBCONSOLE_SERVERLESS_SCAN_URL
+        - name: MICRONAUT_SECURITY_TOKEN_JWT_SIGNATURES_JWKS_KEYCLOAK_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_JWK_KEYCLOAK_URL
+        - name: KEYCLOAK_ENABLED
+          value: "true"
+        - name: API_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: API_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: DB_CONNECTION_STRING
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_CONNECTION_STRING
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+                name: cdefense-config
+                key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: cdefense-secrets
+        - name: CLOUDDEFENSE_HEROKUAPP_GRAPHQL_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_GRAPHQL_URL
+        - name: HASURA_GRAPHQL_ADMIN_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: HASURA_GRAPHQL_ADMIN_SECRET 
+              name: graphql-secrets
+        - name: AWS_S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_S3_ACCESS_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_S3_SECRET_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_SCAN_S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SCAN_S3_ACCESS_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_SCAN_S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SCAN_S3_SECRET_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_SCAN_S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: AWS_SCAN_S3_REGION
+              optional: true
+        - name: AWS_SCAN_S3_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: AWS_SCAN_S3_BUCKET
+              optional: true
+        - name: GITHUB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: scan-server-secrets
+              key: GITHUB_CLIENT_ID
+              optional: true
+        - name: GITHUB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: scan-server-secrets
+              key: GITHUB_CLIENT_SECRET
+              optional: true
+        - name: GITLAB_APPLICATION_ID
+          valueFrom:
+            secretKeyRef:
+              name: scan-server-secrets
+              key: GITLAB_APPLICATION_ID
+              optional: true
+        - name: GITLAB_APPLICATION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: scan-server-secrets
+              key: GITLAB_APPLICATION_SECRET
+              optional: true
+        - name: BITBUCKET_APPLICATION_ID
+          valueFrom:
+            secretKeyRef:
+              name: scan-server-secrets
+              key: BITBUCKET_APPLICATION_ID
+              optional: true
+        - name: BITBUCKET_APPLICATION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: scan-server-secrets
+              key: BITBUCKET_APPLICATION_SECRET
+              optional: true
+        ports:
+        - containerPort: 8080
+      #  resources:
+      #    requests:
+      #      memory: "1G"
+      #      cpu: "500m"
+      #    limits:
+      #      memory: "2G"
+      #      cpu: "1"
+      - name: data
+        image: {{ .Values.data.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
+        env:
+        - name: DB_CONNECTION_STRING
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_CONNECTION_STRING
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_USER
+        - name: CLOUDDEFENSE_HEROKUAPP_GRAPHQL_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_GRAPHQL_URL
+        - name: VFEED_SYNC_JOB_CRON_EXPRESSION
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: DATA_VFEED_SQLITE_FULL_REFRESH_CRON_EXPRESSION
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cdefense-secrets
+              key: DB_PASSWORD
+        - name: HASURA_GRAPHQL_ADMIN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: graphql-secrets
+              key: HASURA_GRAPHQL_ADMIN_SECRET 
+        - name: PORT
+          value: "8081"
+        # resources:
+        #  requests:
+        #    memory: "0.75G"
+        #    cpu: "250m"
+        #  limits:
+        #    memory: "2G"
+        #    cpu: "500m"
+      volumes:
+      - name: bootstrap
+        emptyDir: {}

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: newapi
+  labels:
+    app: newapi
+spec:
+  type: {{ .Values.newapi.service.type }}
+  selector:
+    app: newapi
+  ports:
+    {{ .Values.newapi.service.ports | toYaml | nindent 2 }}
