@@ -1,0 +1,15 @@
+.DS_Store
+
+.idea
+.vscode
+
+*out
+.markdownlint.yaml
+.trunk
+
+dump
+logs
+# secrets
+
+.trunk
+.markdownlint.yaml
