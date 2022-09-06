@@ -46,7 +46,7 @@
     or
 
     ```
-    helm upgrade cdefense cdefense/cdefense
+    helm upgrade cdefense cdefense/cdefense --debug
     ```
 
 ## Configure Credentials
