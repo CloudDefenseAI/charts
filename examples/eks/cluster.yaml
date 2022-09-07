@@ -36,7 +36,7 @@ managedNodeGroups:
   # - name: api
   #   labels: { label: api }
   #   volumeEncrypted: true
-  #   instanceTypes: ["m5.large","m5a.large"]
+  #   instanceTypes: ["m5.large"]
   #   desiredCapacity: 1
   #   privateNetworking: true
   #   minSize: 1
