@@ -7,7 +7,7 @@
     ```sh
     helm repo add bitnami https://charts.bitnami.com/bitnami
     ```
-- Edit `values.yaml`
+- (optional) create/edit `values.yaml`
 
     ```
     nodeSelector:
