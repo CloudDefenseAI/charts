@@ -66,7 +66,7 @@ In order to sign in with different identity providers (for ex. github), create I
 
 ![](/images/github-auth.png)
 
-### create secrets on kubernetes cluster
+### create secrets for authservice
 
 - create a secret for authservice or use a yaml file
 
@@ -96,7 +96,7 @@ kubectl apply -f authservice-secrets.yaml
 
 - restart authservice pod
 
-### How to change location of logs
+## How to change location of logs
 
 - (if required) edit api yaml file
 
