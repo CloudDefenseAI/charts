@@ -74,20 +74,20 @@ In order to sign in with different identity providers (for ex. github), create I
     apiVersion: v1
     kind: Secret
     metadata:
-    name: authservice-secrets
-    type: Opaque
+        name: authservice-secrets
+        type: Opaque
     stringData:
-    SENDGRID_KEY: 
-    GOOGLE_CLIENT_ID: 
-    GOOGLE_CLIENT_SECRET: 
-    GITHUB_CLIENT_ID: 
-    GITHUB_CLIENT_SECRET: 
-    GITLAB_APPLICATION_ID: 
-    GITLAB_APPLICATION_SECRET: 
-    BITBUCKET_KEY: 
-    BITBUCKET_SECRET: 
-    MICROSOFT_CLIENT_ID: 
-    MICROSOFT_CLIENT_SECRET: 
+        SENDGRID_KEY: 
+        GOOGLE_CLIENT_ID: 
+        GOOGLE_CLIENT_SECRET: 
+        GITHUB_CLIENT_ID: 
+        GITHUB_CLIENT_SECRET: 
+        GITLAB_APPLICATION_ID: 
+        GITLAB_APPLICATION_SECRET: 
+        BITBUCKET_KEY: 
+        BITBUCKET_SECRET: 
+        MICROSOFT_CLIENT_ID: 
+        MICROSOFT_CLIENT_SECRET: 
     ```
 
     ```
