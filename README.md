@@ -53,7 +53,7 @@
     helm upgrade cdefense cdefense/cdefense --debug
     ```
 
-## Configure Credentials
+## Configure Social Authentication
 
 In order to sign in with different identity providers (for ex. github), create ID and secrets
 
