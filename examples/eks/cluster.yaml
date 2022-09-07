@@ -1,0 +1,52 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: <CLUSTER-NAME>
+  region: <REGION>
+
+vpc:
+  cidr: <CIDR>
+
+managedNodeGroups:
+  - name: external
+    labels: { label: external }
+    volumeEncrypted: true
+    instanceType: "t3.medium"
+    desiredCapacity: 1
+    privateNetworking: true
+    minSize: 1
+    maxSize: 4
+  - name: auth
+    labels: { label: auth }
+    volumeEncrypted: true
+    instanceType: "t3.medium"
+    desiredCapacity: 1
+    privateNetworking: true
+    minSize: 1
+    maxSize: 4
+  - name: api
+    labels: { label: api }
+    volumeEncrypted: true
+    instanceTypes: ["m5.large","m5a.large"]
+    desiredCapacity: 1
+    privateNetworking: true
+    minSize: 1
+    maxSize: 4
+  - name: web
+    labels: { label: web }
+    volumeEncrypted: true
+    instanceType: "t3.small"
+    desiredCapacity: 1
+    privateNetworking: true
+    minSize: 1
+    maxSize: 4
+  - name: jobs
+    labels: { label: job }
+    spot: true
+    volumeEncrypted: true
+    instanceTypes: ["c5.xlarge"]
+    desiredCapacity: 1
+    privateNetworking: true
+    minSize: 1
+    maxSize: 4
