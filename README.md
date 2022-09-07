@@ -7,13 +7,17 @@
     ```sh
     helm repo add bitnami https://charts.bitnami.com/bitnami
     ```
+- Edit `values.yaml`
 
+    ```
+    nodeSelector:
+      label: external
+    ```
 - Install kafka helm
 
     ```sh
-    helm install kafka bitnami/kafka
+    helm install kafka bitnami/kafka -f values.yaml
     ```
-
 ## Install cdefense
 
 - add cdefense helm repo
