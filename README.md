@@ -91,3 +91,89 @@ stringData:
 kubectl apply -f authservice-secrets.yaml
 ```
 - restart authservice pod
+
+## How to change location of logs
+
+- (if required) edit api yaml file
+
+```
+        - name: AWS_SCAN_S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: AWS_SCAN_S3_REGION
+              optional: true
+        - name: AWS_SCAN_S3_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: AWS_SCAN_S3_BUCKET
+              optional: true
+        - name: AWS_SCAN_S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SCAN_S3_ACCESS_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_SCAN_S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SCAN_S3_SECRET_KEY
+              name: scan-server-secrets
+              optional: true
+```
+
+- provide location of bucket
+ 
+ ```
+ kubectl edit configmap scan-server-config
+ ```
+
+ ```
+   AWS_SCAN_S3_BUCKET: <BUCKET_NAME>
+   AWS_SCAN_S3_REGION: <REGION>
+ ```
+
+### in case of private bucket
+
+- Edit the scan-server-secrets.yaml file
+
+ ```yaml
+   AWS_SCAN_S3_ACCESS_KEY: <AWS_SCAN_S3_ACCESS_KEY>
+   AWS_SCAN_S3_SECRET_KEY: <AWS_SCAN_S3_SECRET_KEY>
+ ```
+
+ ```
+ kubectl apply -f scan-server-secrets.yaml
+ ```
+
+or
+
+- encode values as base64 strings
+
+ ```
+ AWS_SCAN_S3_ACCESS_KEY=<AWS_ACCESS_KEY>
+ BASE64_AWS_SCAN_S3_ACCESS_KEY=$(echo $AWS_SCAN_S3_ACCESS_KEY | base64)
+ ```
+ 
+ ```
+ AWS_SCAN_S3_SECRET_KEY=<AWS_SECRET_KEY>
+ BASE64_AWS_SCAN_S3_ACCESS_KEY=$(echo $AWS_SCAN_S3_SECRET_KEY | base64)
+ ```
+ 
+- edit scan-server-secrets
+
+ ```
+ kubectl edit secret scan-server-secrets
+ ```
+ 
+ ```yaml
+   AWS_SCAN_S3_ACCESS_KEY: <BASE64_AWS_SCAN_S3_ACCESS_KEY>
+   AWS_SCAN_S3_SECRET_KEY: <BASE64_AWS_SCAN_S3_SECRET_KEY>
+ ```
+
+- save and restart api pod
+ 
+ ```
+ kubectl delete pod api-<some-string>
+ ```
