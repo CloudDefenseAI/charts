@@ -4,13 +4,13 @@
 
 - Download the kafka helm repo (bitnami)
 
-    ```
+    ```sh
     helm repo add bitnami https://charts.bitnami.com/bitnami
     ```
 
 - Install kafka helm
 
-    ```
+    ```sh
     helm install kafka bitnami/kafka
     ```
 
@@ -18,38 +18,38 @@
 
 - add cdefense helm repo
 
-    ```
+    ```sh
     helm repo add cdefense https://clouddefenseai.github.io/charts/  
     ```
 
 - update repos
 
-    ```
+    ```sh
     helm repo update
     ```
 
 - clone the repo
 - create roles, role binding and service accounts
 
-    ```
+    ```sh
     kubectl apply -f charts/cdefense/rbac
     ```
 
 - create secrets
 
-    ```
+    ```sh
     kubectl apply -f charts/cdefense/secrets
     ```
 
 - Install cdefense helm
 
-    ```
+    ```sh
     helm install cdefense cdefense --debug
     ```
 
     or
 
-    ```
+    ```sh
     helm upgrade cdefense cdefense/cdefense --debug
     ```
 
@@ -68,29 +68,29 @@ In order to sign in with different identity providers (for ex. github), create I
 
 ### create secrets for authservice
 
-- create a secret for authservice or use a yaml file
+- create a secret for authservice
 
-    ```
+    ```yaml
     apiVersion: v1
     kind: Secret
     metadata:
-        name: authservice-secrets
-        type: Opaque
+      name: authservice-secrets
+      type: Opaque
     stringData:
-        SENDGRID_KEY: 
-        GOOGLE_CLIENT_ID: 
-        GOOGLE_CLIENT_SECRET: 
-        GITHUB_CLIENT_ID: 
-        GITHUB_CLIENT_SECRET: 
-        GITLAB_APPLICATION_ID: 
-        GITLAB_APPLICATION_SECRET: 
-        BITBUCKET_KEY: 
-        BITBUCKET_SECRET: 
-        MICROSOFT_CLIENT_ID: 
-        MICROSOFT_CLIENT_SECRET: 
+      SENDGRID_KEY: 
+      GOOGLE_CLIENT_ID: 
+      GOOGLE_CLIENT_SECRET: 
+      GITHUB_CLIENT_ID: 
+      GITHUB_CLIENT_SECRET: 
+      GITLAB_APPLICATION_ID: 
+      GITLAB_APPLICATION_SECRET: 
+      BITBUCKET_KEY: 
+      BITBUCKET_SECRET: 
+      MICROSOFT_CLIENT_ID: 
+      MICROSOFT_CLIENT_SECRET: 
     ```
 
-    ```
+    ```sh
     kubectl apply -f authservice-secrets.yaml
     ```
 
@@ -98,45 +98,14 @@ In order to sign in with different identity providers (for ex. github), create I
 
 ## How to change location of logs
 
-- (if required) edit api yaml file
+- update value.yaml
 
+    ```yaml
+    api:
+      logs: 
+        region: <REGION>
+        bucket: <BUCKET>
     ```
-            - name: AWS_SCAN_S3_REGION
-            valueFrom:
-                configMapKeyRef:
-                name: scan-server-config
-                key: AWS_SCAN_S3_REGION
-                optional: true
-            - name: AWS_SCAN_S3_BUCKET
-            valueFrom:
-                configMapKeyRef:
-                name: scan-server-config
-                key: AWS_SCAN_S3_BUCKET
-                optional: true
-            - name: AWS_SCAN_S3_ACCESS_KEY
-            valueFrom:
-                secretKeyRef:
-                key: AWS_SCAN_S3_ACCESS_KEY
-                name: scan-server-secrets
-                optional: true
-            - name: AWS_SCAN_S3_SECRET_KEY
-            valueFrom:
-                secretKeyRef:
-                key: AWS_SCAN_S3_SECRET_KEY
-                name: scan-server-secrets
-                optional: true
-    ```
-
-- provide location of bucket
-
-  ```
-  kubectl edit configmap scan-server-config
-  ```
-
-  ```
-    AWS_SCAN_S3_BUCKET: <BUCKET_NAME>
-    AWS_SCAN_S3_REGION: <REGION>
-  ```
 
 ### in case of private bucket
 
@@ -147,37 +116,37 @@ In order to sign in with different identity providers (for ex. github), create I
     AWS_SCAN_S3_SECRET_KEY: <AWS_SCAN_S3_SECRET_KEY>
   ```
 
-  ```
+  ```sh
   kubectl apply -f scan-server-secrets.yaml
   ```
 
-or
+- or update secrets on cluster
 
-- encode values as base64 strings
+    - encode values as base64 strings
 
-  ```
-  AWS_SCAN_S3_ACCESS_KEY=<AWS_ACCESS_KEY>
-  BASE64_AWS_SCAN_S3_ACCESS_KEY=$(echo $AWS_SCAN_S3_ACCESS_KEY | base64)
-  ```
+    ```sh
+    AWS_SCAN_S3_ACCESS_KEY=<AWS_ACCESS_KEY>
+    BASE64_AWS_SCAN_S3_ACCESS_KEY=$(echo $AWS_SCAN_S3_ACCESS_KEY | base64)
+    ```
 
-  ```
-  AWS_SCAN_S3_SECRET_KEY=<AWS_SECRET_KEY>
-  BASE64_AWS_SCAN_S3_ACCESS_KEY=$(echo $AWS_SCAN_S3_SECRET_KEY | base64)
-  ```
+    ```sh
+    AWS_SCAN_S3_SECRET_KEY=<AWS_SECRET_KEY>
+    BASE64_AWS_SCAN_S3_ACCESS_KEY=$(echo $AWS_SCAN_S3_SECRET_KEY | base64)
+    ```
 
-- edit scan-server-secrets
+    - edit scan-server-secrets
 
-  ```
-  kubectl edit secret scan-server-secrets
-  ```
+    ```sh
+    kubectl edit secret scan-server-secrets
+    ```
 
-  ```yaml
-    AWS_SCAN_S3_ACCESS_KEY: <BASE64_AWS_SCAN_S3_ACCESS_KEY>
-    AWS_SCAN_S3_SECRET_KEY: <BASE64_AWS_SCAN_S3_SECRET_KEY>
-  ```
+    ```yaml
+      AWS_SCAN_S3_ACCESS_KEY: <BASE64_AWS_SCAN_S3_ACCESS_KEY>
+      AWS_SCAN_S3_SECRET_KEY: <BASE64_AWS_SCAN_S3_SECRET_KEY>
+    ```
 
 - save and restart api pod
 
-  ```
+  ```sh
   kubectl delete pod api-<some-string>
   ```
