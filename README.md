@@ -33,6 +33,10 @@
     ```
 
 - clone the repo
+
+    ```
+    git clone https://github.com/CloudDefenseAI/charts
+    ```
 - create roles, role binding and service accounts
 
     ```sh
