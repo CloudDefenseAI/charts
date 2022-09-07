@@ -70,29 +70,29 @@ In order to sign in with different identity providers (for ex. github), create I
 
 - create a secret for authservice or use a yaml file
 
-```
-apiVersion: v1
-kind: Secret
-metadata:
-  name: authservice-secrets
-type: Opaque
-stringData:
-  SENDGRID_KEY: 
-  GOOGLE_CLIENT_ID: 
-  GOOGLE_CLIENT_SECRET: 
-  GITHUB_CLIENT_ID: 
-  GITHUB_CLIENT_SECRET: 
-  GITLAB_APPLICATION_ID: 
-  GITLAB_APPLICATION_SECRET: 
-  BITBUCKET_KEY: 
-  BITBUCKET_SECRET: 
-  MICROSOFT_CLIENT_ID: 
-  MICROSOFT_CLIENT_SECRET: 
-```
+    ```
+    apiVersion: v1
+    kind: Secret
+    metadata:
+    name: authservice-secrets
+    type: Opaque
+    stringData:
+    SENDGRID_KEY: 
+    GOOGLE_CLIENT_ID: 
+    GOOGLE_CLIENT_SECRET: 
+    GITHUB_CLIENT_ID: 
+    GITHUB_CLIENT_SECRET: 
+    GITLAB_APPLICATION_ID: 
+    GITLAB_APPLICATION_SECRET: 
+    BITBUCKET_KEY: 
+    BITBUCKET_SECRET: 
+    MICROSOFT_CLIENT_ID: 
+    MICROSOFT_CLIENT_SECRET: 
+    ```
 
-```
-kubectl apply -f authservice-secrets.yaml
-```
+    ```
+    kubectl apply -f authservice-secrets.yaml
+    ```
 
 - restart authservice pod
 
@@ -100,32 +100,32 @@ kubectl apply -f authservice-secrets.yaml
 
 - (if required) edit api yaml file
 
-```
-        - name: AWS_SCAN_S3_REGION
-          valueFrom:
-            configMapKeyRef:
-              name: scan-server-config
-              key: AWS_SCAN_S3_REGION
-              optional: true
-        - name: AWS_SCAN_S3_BUCKET
-          valueFrom:
-            configMapKeyRef:
-              name: scan-server-config
-              key: AWS_SCAN_S3_BUCKET
-              optional: true
-        - name: AWS_SCAN_S3_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              key: AWS_SCAN_S3_ACCESS_KEY
-              name: scan-server-secrets
-              optional: true
-        - name: AWS_SCAN_S3_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              key: AWS_SCAN_S3_SECRET_KEY
-              name: scan-server-secrets
-              optional: true
-```
+    ```
+            - name: AWS_SCAN_S3_REGION
+            valueFrom:
+                configMapKeyRef:
+                name: scan-server-config
+                key: AWS_SCAN_S3_REGION
+                optional: true
+            - name: AWS_SCAN_S3_BUCKET
+            valueFrom:
+                configMapKeyRef:
+                name: scan-server-config
+                key: AWS_SCAN_S3_BUCKET
+                optional: true
+            - name: AWS_SCAN_S3_ACCESS_KEY
+            valueFrom:
+                secretKeyRef:
+                key: AWS_SCAN_S3_ACCESS_KEY
+                name: scan-server-secrets
+                optional: true
+            - name: AWS_SCAN_S3_SECRET_KEY
+            valueFrom:
+                secretKeyRef:
+                key: AWS_SCAN_S3_SECRET_KEY
+                name: scan-server-secrets
+                optional: true
+    ```
 
 - provide location of bucket
 
