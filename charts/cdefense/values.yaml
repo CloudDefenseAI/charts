@@ -62,7 +62,7 @@ keycloak:
   image: quay.io/keycloak/keycloak
   version: "18.0.0"
   db:
-    name: keycloak
+    name: cdefense
   user: authadmin
   service:
     type: NodePort
