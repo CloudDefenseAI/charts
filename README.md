@@ -6,7 +6,7 @@ There are three main pre-requisites for a production grade cdefense installation
 
 1. A managed Postgres instance (for AWS RDS db.r5.large)
     1. enable automated backups
-2. A kubernetes cluster with at least two nodegroup (/examples/eks)
+2. A kubernetes cluster (/examples/eks) with at least two nodegroups
     1. node group for jobs
         1. each node has { label: job }
     2. node group for all else
