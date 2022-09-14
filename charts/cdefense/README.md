@@ -8,7 +8,6 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| SSL.enabled | bool | `false` |  |
 | admin.backend.autoscaling.enabled | bool | `false` |  |
 | admin.backend.autoscaling.maxReplicas | int | `3` |  |
 | admin.backend.autoscaling.minReplicas | int | `1` |  |

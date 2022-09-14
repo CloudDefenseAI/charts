@@ -20,65 +20,70 @@ data:
   CLOUDDEFENSE_API_URL: http://api
   CLOUDDEFENSE_COOKIE_DOMAIN: ".{{ .Values.domain }}"
   CLOUDDEFENSE_BASE_DOMAIN: .{{ .Values.hostname | default "web.cdefense.svc.cluster.local" }}
-  {{ if .Values.SSL.enabled }} 
+  {{ if .Values.ingress.enabled }} 
+  CLOUDDEFENSE_BASE_DOMAIN: .{{ .Values.hostname }}
+  {{ else }}
+  CLOUDDEFENSE_BASE_DOMAIN: .cdefense.svc.cluster.local
+  {{ end }}
+  {{ if .Values.ingress.enabled }} 
   CLOUDDEFENSE_BASE_URL: https://{{ .Values.hostname }}
   {{ else }}
-  CLOUDDEFENSE_BASE_URL: http://{{ .Values.hostname | default "web.cdefense.svc.cluster.local" }}
+  CLOUDDEFENSE_BASE_URL: http://web.cdefense.svc.cluster.local
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_AUTH_ENDPOINT: https://{{ .Values.hostname }}
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_AUTH_ENDPOINT: http://{{ .Values.hostname | default "authservice.cdefense.svc.cluster.local" }}
+  CLOUDDEFENSE_WEBCONSOLE_AUTH_ENDPOINT: http://authservice.cdefense.svc.cluster.local
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_GRAPHQL_ENDPOINT: https://{{ .Values.hostname}}/v1/graphql
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_GRAPHQL_ENDPOINT: http://{{ .Values.hostname | default "graphql.cdefense.svc.cluster.local" }}/v1/graphql
+  CLOUDDEFENSE_WEBCONSOLE_GRAPHQL_ENDPOINT: http://graphql.cdefense.svc.cluster.local/v1/graphql
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_CONTAINER_SCAN_URL: https://{{ .Values.hostname }}/applications/container/details
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_CONTAINER_SCAN_URL: http://{{ .Values.hostname | default "api.cdefense.svc.cluster.local" }}/applications/container/details
+  CLOUDDEFENSE_WEBCONSOLE_CONTAINER_SCAN_URL: http://api.cdefense.svc.cluster.local/applications/container/details
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_KUBERNETES_SCAN_URL: https://{{ .Values.hostname }}/applications/kube/details
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_KUBERNETES_SCAN_URL: http://{{ .Values.hostname | default "api.cdefense.svc.cluster.local" }}/applications/kube/details
+  CLOUDDEFENSE_WEBCONSOLE_KUBERNETES_SCAN_URL: http://api.cdefense.svc.cluster.local/applications/kube/details
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_SERVERLESS_SCAN_URL: https://{{ .Values.hostname }}
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_SERVERLESS_SCAN_URL: http://{{ .Values.hostname | default "api.cdefense.svc.cluster.local" }}/applications/serverless/details
+  CLOUDDEFENSE_WEBCONSOLE_SERVERLESS_SCAN_URL: http://api.cdefense.svc.cluster.local/applications/serverless/details
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_TERRAFORM_SCAN_URL: https://{{ .Values.hostname }}/applications/terraform/details
   {{ else }}
   CLOUDDEFENSE_WEBCONSOLE_TERRAFORM_SCAN_URL: http://{{ .Values.hostname | default "api.cdefense.svc.cluster.local" }}/applications/terraform/details
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: https://{{ .Values.hostname }}
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: http://{{ .Values.hostname | default "api.cdefense.svc.cluster.local" }}
+  CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: http://api.cdefense.svc.cluster.local" }}
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: https://{{ .Values.recommendation.hostname }}
   {{ else }}
   CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: http://{{ .Values.recommendation.hostname | default "recommendation.cdefense.svc.cluster.local" }}
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_HOST_URL: https://{{ .Values.hostname }}/project-details
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_HOST_URL: http://{{ .Values.hostname | default "web.cdefense.svc.cluster.local" }}/project-details
+  CLOUDDEFENSE_WEBCONSOLE_HOST_URL: http://web.cdefense.svc.cluster.local/project-details
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_ADMIN_API_URL: https://admin-{{ .Values.hostname }}
   {{ else }}
-  CLOUDDEFENSE_ADMIN_API_URL: http://admin-{{ .Values.hostname | default "admin.cdefense.svc.cluster.local" }}
+  CLOUDDEFENSE_ADMIN_API_URL: http://admin.cdefense.svc.cluster.local
   {{ end }}
-  {{ if .Values.SSL.enabled }}
+  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_ADMIN_UI_URL: https://adminui-{{ .Values.hostname }}
   {{ else }}
-  CLOUDDEFENSE_ADMIN_UI_URL: http://adminui-{{ .Values.hostname | default "adminui.cdefense.svc.cluster.local" }}
+  CLOUDDEFENSE_ADMIN_UI_URL: http://adminui.cdefense.svc.cluster.local
   {{ end }}
   CLOUDDEFENSE_WEBCONSOLE_AUTH_STAGE: dockerStaging
   CLOUDDEFENSE_WEBCONSOLE_ONPREM_ENABLED: cdefense

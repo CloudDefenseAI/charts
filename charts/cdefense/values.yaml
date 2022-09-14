@@ -8,9 +8,6 @@ cluster:
   zones: |
     [ 'us-west-2a', 'us-wes-2b', 'us-wes-2c' ]
 
-SSL:
-  enabled: true
-
 ingress:
   enabled: true
   type: "alb"
