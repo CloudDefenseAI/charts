@@ -15,7 +15,7 @@ ingress:
     scheme: internet-facing
 
 aws:
-  certificatearn: arn:aws:acm:us-west-2:407638845061:certificate/9bb8e128-f98f-45aa-8178-01c042e423c4
+  certificatearn: ""
 
 sentry:
   env: prod
