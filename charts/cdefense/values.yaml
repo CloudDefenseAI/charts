@@ -23,7 +23,7 @@ sentry:
 uptime:
   nodeSelector: external
   tolerations: []
-  enabled: true
+  enabled: false
   hostname: status.clouddefenseai.com
 
 db:
