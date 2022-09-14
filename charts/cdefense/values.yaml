@@ -12,6 +12,7 @@ SSL:
   enabled: true
 
 ingress:
+  enabled: true
   type: "alb"
   alb:
     scheme: internet-facing
