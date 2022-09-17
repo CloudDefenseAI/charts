@@ -6,7 +6,7 @@ metadata:
   labels:
     app: keycloak
 data:
-  KC_DB_NAME: {{ .Values.keycloak.db.name }}
+  KC_DB_NAME: {{ .Values.db.name }}
   KC_HOSTNAME_STRICT: "false"
   KC_HTTP_RELATIVE_PATH: /auth
   KC_PROXY: "edge"

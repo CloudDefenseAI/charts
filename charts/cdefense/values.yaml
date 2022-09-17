@@ -59,8 +59,6 @@ keycloak:
   replicas: 1
   image: quay.io/keycloak/keycloak
   version: "18.0.0"
-  db:
-    name: cdefense
   user: authadmin
   service:
     type: NodePort
