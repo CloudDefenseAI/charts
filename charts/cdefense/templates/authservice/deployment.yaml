@@ -30,6 +30,21 @@ spec:
         - name: authservice
           image: {{ .Values.authservice.image }}:{{ .Values.version }}
           env:
+          - name: POSTGRE_DB_URL
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: DB_CONNECTION_STRING
+          - name: POSTGRE_DB_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: cdefense-config
+                key: DB_USER
+          - name: POSTGRE_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: cdefense-secrets
+                key: DB_PASSWORD
           - name: SENTRY_ENV
             valueFrom:
               configMapKeyRef:
