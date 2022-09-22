@@ -13,6 +13,11 @@ There are three main pre-requisites for a production grade cdefense installation
         1. (optional) each node has { label: cdefense }
 3. A cluster auto-scaler
 
+## WARNINGS
+
+- **DO NOT** change Database password or URI after helm install
+
+
 ## Install kafka
 
 - Download the kafka helm repo (bitnami)
