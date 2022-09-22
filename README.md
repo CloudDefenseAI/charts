@@ -15,6 +15,8 @@ There are three main pre-requisites for a production grade cdefense installation
 
 ## WARNINGS
 
+- Database URI has to be the Internal URI valid inside the private network
+    - **DO NOT** obscure it behind a DNS as applications will fail due to no connectuon to the database
 - **DO NOT** change Database password or URI after helm install
 
 
