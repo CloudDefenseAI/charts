@@ -58,7 +58,7 @@ data:
   {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_TERRAFORM_SCAN_URL: https://{{ .Values.hostname }}/applications/terraform/details
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_TERRAFORM_SCAN_URL: http://{{ .Values.hostname | default "api.cdefense.svc.cluster.local" }}/applications/terraform/details
+  CLOUDDEFENSE_WEBCONSOLE_TERRAFORM_SCAN_URL: http://api.cdefense.svc.cluster.local/applications/terraform/details
   {{ end }}
   {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: https://{{ .Values.hostname }}
@@ -68,7 +68,7 @@ data:
   {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: https://{{ .Values.recommendation.hostname }}
   {{ else }}
-  CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: http://{{ .Values.recommendation.hostname | default "recommendation.cdefense.svc.cluster.local" }}
+  CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: http://recommendation.cdefense.svc.cluster.local
   {{ end }}
   {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_HOST_URL: https://{{ .Values.hostname }}/project-details
