@@ -63,7 +63,7 @@ data:
   {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: https://{{ .Values.hostname }}
   {{ else }}
-  CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: http://api.cdefense.svc.cluster.local" }}
+  CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: http://api.cdefense.svc.cluster.local
   {{ end }}
   {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: https://{{ .Values.recommendation.hostname }}
