@@ -68,12 +68,12 @@ There are three main pre-requisites for a production grade cdefense installation
     ```sh
     kubectl apply -f charts/cdefense/secrets
     ```
-- (optional) create/edit values.yaml in dump (git ignored)
+- create/edit values.yaml in dump (git ignored)
 
-    ```
+    ```sh
     cp values.yaml dump/values.yaml
     ```
-
+- make changes to values.yaml in dump (git ignored)
 - Install cdefense helm
 
     ```sh
@@ -84,6 +84,12 @@ There are three main pre-requisites for a production grade cdefense installation
 
     ```sh
     helm upgrade cdefense cdefense/cdefense --debug
+    ```
+
+    or
+
+    ```
+    helm upgrade cdefense cdefense/cdefense dump/values.yaml --debug
     ```
 
 ## Configure Social Authentication
