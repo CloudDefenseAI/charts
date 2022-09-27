@@ -96,6 +96,11 @@ spec:
           - configMapRef:
               name: scan-server-config
         env:
+        - name: CYBERTHOTH_SCAN_DOCKER_IMAGE
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: CYBERTHOTH_SCAN_DOCKER_IMAGE
         - name: FULL_SCAN_DOCKER_IMAGE
           valueFrom:
             configMapKeyRef:

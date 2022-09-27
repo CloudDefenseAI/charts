@@ -1,4 +1,4 @@
-version: "release-4.5.2"
+version: "release-4.5.3"
 domain: clouddefenseai.com
 hostname: console.clouddefenseai.com
 
@@ -108,6 +108,8 @@ api:
     - name: http
       port: 80
       targetPort: 8080
+  cyberthoth:
+    image: cdefense/cyberthoth:dev
   fullscan:
     image: cdefense/fullscan:prod
   data:

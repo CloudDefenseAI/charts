@@ -7,6 +7,7 @@ metadata:
     app: api
 data:
   FULL_SCAN_DOCKER_IMAGE: {{ .Values.api.fullscan.image }}
+  CYBERTHOTH_SCAN_DOCKER_IMAGE: {{ .Values.api.cyberthoth.image }}
   KUBERNETES_NODESELECTOR_KEY: {{ .Values.api.job.nodeSelector.key }}
   KUBERNETES_NODESELECTOR_VALUE: {{ .Values.api.job.nodeSelector.value }}
   DATA_VFEED_SQLITE_FULL_REFRESH_CRON_EXPRESSION: "0 */2 * * *"
