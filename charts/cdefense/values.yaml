@@ -202,7 +202,7 @@ admin:
     nodeSelector: auth
     tolerations: []
     replicas: 1
-    image: cdefense/admin-be-service
+    image: cdefense/admin-ui-be
     version: "latest"
     service:
       type: NodePort
