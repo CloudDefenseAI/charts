@@ -68,6 +68,11 @@ There are three main pre-requisites for a production grade cdefense installation
     ```sh
     kubectl apply -f charts/cdefense/secrets
     ```
+- (optional) create/edit values.yaml in dump (git ignored)
+
+    ```
+    cp values.yaml dump/values.yaml
+    ```
 
 - Install cdefense helm
 
