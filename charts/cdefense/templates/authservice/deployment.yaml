@@ -186,26 +186,6 @@ spec:
         #      memory: "2G"
         #      cpu: "1"
       initContainers:
-        - name: check-keycloak-pod
-          image: bitnami/kubectl:latest
-          imagePullPolicy: IfNotPresent
-          command:
-            - /bin/sh
-            - -c
-            - while [ "$(kubectl get pod -l app='keycloak' -o jsonpath='{.items[0].status.phase}')" != "Running" ]; do echo "waiting for keycloak to be ready."; sleep 10; done
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-        - name: check-keycloak # WARNING checks logs of the keycloak pod for "Listening on" as such likelier to break as result if developer change the keycloak pod logs
-          image: bitnami/kubectl:latest
-          imagePullPolicy: IfNotPresent
-          command:
-            - sh
-            - -c
-            - POD=$(kubectl get pod -l app=keycloak -o jsonpath="{.items[0].metadata.name}") && until kubectl logs $POD|grep "Listening on"; do echo "waiting for authservice"; sleep 10; done; echo connection to keycloak ok 
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
         - name: check-db
           image: postgres:14
           imagePullPolicy: IfNotPresent
@@ -213,6 +193,16 @@ spec:
             - sh
             - -c
             - until pg_isready -h db -p 5432; do echo waiting for database; sleep 5; done;
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        - name: check-keycloak-pod
+          image: bitnami/kubectl:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - while [ "$(kubectl get pod -l app='keycloak' -o jsonpath='{.items[0].status.phase}')" != "Running" ]; do echo "waiting for keycloak to be ready."; sleep 10; done
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
