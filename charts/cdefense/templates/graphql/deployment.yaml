@@ -29,6 +29,7 @@ spec:
       containers:
       - name: graphql
         image: {{ .Values.graphql.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
         env:
         - name: HASURA_GRAPHQL_DEV_MODE
           valueFrom:
