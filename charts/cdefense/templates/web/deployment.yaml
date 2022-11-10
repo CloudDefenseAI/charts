@@ -33,6 +33,11 @@ spec:
         args:
         - ./run.sh
         env:
+        - name: NEW_API_HOST
+          valueFrom:
+            configMapKeyRef:
+                name: cdefense-config
+                key: CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT
         - name: RECOMMENDATIONS_ENDPOINT
           valueFrom:
             configMapKeyRef:
