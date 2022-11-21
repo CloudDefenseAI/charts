@@ -1,11 +1,17 @@
-Release Date : 02.11.2022
+Release Date : 18.11.2022
 
-Users now can see both SANS 25 and OWASP Top 10 Category in code analysis.
-On alert service users can see the details of that alert service in a tooltip.
-Users can export all the SCA dependencies in a CSV file.
-SAST Rules UI user can see OWASP Top 10 Info with SANS 25 data
-Users can do Scheduling Dast scans daily and weekly.
-Users can rate Clouddefense and also give the feedback from the site.
-Users can see the application report based on the date of scan.
+Release Notes : 4.6.2
 
-Some bugs have been resolved for integration, scan, and UI improvements.
+New Feature :
+
+User can add vulnerability in allowed list for DAST and SCA  
+In Dashboard users can see OWASP Top 10 and SANS Top 25 vulnerability list.
+After scanning the application user can see that application in the under team on import log.
+SCA and DAST rules added in compliance section
+App user can see application and team report
+
+New Improvement :
+
+Scan has been improved based on dependency.
+User invitation with bulk users has been improved.
+Integration improvement and resolved bugs.
