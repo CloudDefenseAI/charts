@@ -58,7 +58,7 @@ keycloak:
   tolerations: []
   replicas: 1
   image: quay.io/keycloak/keycloak
-  version: "18.0.0"
+  version: "19.0.3"
   user: authadmin
   service:
     type: NodePort
