@@ -50,7 +50,7 @@ There are three main pre-requisites for a production grade cdefense installation
 - create/edit values.yaml in dump (git ignored)
 
     ```sh
-    cp cdefense/values.yaml dump/cdefense/values.yaml
+    cp charts/cdefense/values.yaml dump/cdefense/values.yaml
     ```
 - Edit values.yaml in dump (git ignored) for ex. change domain and hostname
 
@@ -60,7 +60,7 @@ There are three main pre-requisites for a production grade cdefense installation
 - Install cdefense helm
 
     ```sh
-    helm install cdefense cdefense -f dump/values.yaml --debug
+    helm install cdefense charts/cdefense -f dump/cdefense/values.yaml --debug
     ```
 
 ### Install cdefense from helm repo
