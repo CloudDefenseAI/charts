@@ -1,6 +1,6 @@
 version: "release-4.6.2"
 domain: clouddefenseai.com
-hostname: console.clouddefenseai.com
+hostname: cdefense.clouddefenseai.com
 
 cluster:
   type: eks
@@ -24,10 +24,9 @@ uptime:
   nodeSelector: external
   tolerations: []
   enabled: false
-  hostname: status.clouddefenseai.com
 
 db:
-  nodeSelector: db
+  nodeSelector: cdefense
   tolerations: []
   type: "internal"
   replicas: 1
@@ -54,7 +53,7 @@ db:
     targetMemoryUtilizationPercentage: 80
 
 keycloak:
-  nodeSelector: auth
+  nodeSelector: cdefense
   tolerations: []
   replicas: 1
   image: quay.io/keycloak/keycloak
@@ -74,7 +73,7 @@ keycloak:
     targetMemoryUtilizationPercentage: 80
 
 authservice:
-  nodeSelector: auth
+  nodeSelector: cdefense
   tolerations: []
   replicas: 1
   image: cdefense/auth-service
@@ -88,7 +87,7 @@ authservice:
       targetPort: 8080
 
 graphql:
-  nodeSelector: api
+  nodeSelector: cdefense
   tolerations: []
   image: cdefense/graphql
   service:
@@ -99,7 +98,7 @@ graphql:
       targetPort: 8080
 
 api:
-  nodeSelector: api
+  nodeSelector: cdefense
   tolerations: []
   image: cdefense/scan-api
   service:
@@ -125,12 +124,12 @@ api:
       value: job
 
 data:
-  nodeSelector: api
+  nodeSelector: cdefense
   tolerations: []
   image: cdefense/scan-data
 
 newapi:
-  nodeSelector: api
+  nodeSelector: cdefense
   tolerations: []
   replicas: 1
   image: cdefense/new-api
@@ -149,7 +148,7 @@ newapi:
     targetMemoryUtilizationPercentage: 80
 
 alertservice:
-  nodeSelector: api
+  nodeSelector: cdefense
   tolerations: []
   replicas: 1
   image: cdefense/alert-service
@@ -168,8 +167,7 @@ alertservice:
     targetMemoryUtilizationPercentage: 80
 
 recommendation:
-  hostname: recommendation.clouddefenseai.com
-  nodeSelector: api
+  nodeSelector: cdefense
   tolerations: []
   replicas: 1
   image: cdefense/recommendation-service
@@ -188,7 +186,7 @@ recommendation:
     targetMemoryUtilizationPercentage: 80
 
 web:
-  nodeSelector: web
+  nodeSelector: cdefense
   tolerations: []
   replicas: 1
   image: cdefense/webconsole
@@ -219,7 +217,7 @@ admin:
       targetCPUUtilizationPercentage: 80
       targetMemoryUtilizationPercentage: 80
   frontend:
-    nodeSelector: web
+    nodeSelector: cdefense
     tolerations: []
     replicas: 1
     image: cdefense/admin-ui-fe
