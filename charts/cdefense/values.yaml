@@ -199,7 +199,7 @@ web:
 
 admin:
   backend:
-    nodeSelector: auth
+    nodeSelector: cdefense
     tolerations: []
     replicas: 1
     image: cdefense/admin-ui-be
