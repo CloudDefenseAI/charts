@@ -19,6 +19,77 @@ There are three main pre-requisites for a production grade cdefense installation
     - **DO NOT** obscure it behind a DNS as applications will be unable to connect to the database
 - **DO NOT** change Database password or URI after helm install
 
+## Install cdefense
+
+### Install cdefense from git repo
+
+- clone the repo
+
+    ```sh
+    git clone https://github.com/CloudDefenseAI/charts
+    ```
+
+    ```sh
+    cd charts
+    ```
+- create roles, role binding and service accounts
+
+    ```sh
+    kubectl apply -f charts/cdefense/rbac
+    ```
+- create secrets
+
+    ```sh
+    kubectl apply -f charts/cdefense/secrets
+    ```
+- create a dump folder (git ignored) if it does not exist
+
+    ```
+    mkdir dump
+    ```
+- create/edit values.yaml in dump (git ignored)
+
+    ```sh
+    cp cdefense/values.yaml dump/cdefense/values.yaml
+    ```
+- Edit values.yaml in dump (git ignored) for ex. change domain and hostname
+
+    ```sh
+    vi dump/cdefense/values.yaml
+    ```
+- Install cdefense helm
+
+    ```sh
+    helm install cdefense cdefense -f dump/values.yaml --debug
+    ```
+
+### Install cdefense from helm repo
+
+- add cdefense helm repo
+
+    ```sh
+    helm repo add cdefense https://clouddefenseai.github.io/charts/  
+    ```
+- update repos
+
+    ```sh
+    helm repo update
+    ```
+- create/edit values.yaml
+
+    ```sh
+    touch cdefense/values.yaml
+    ```
+- Edit values.yaml for ex. change domain and hostname
+
+    ```sh
+    vi cdefense/values.yaml
+    ```
+- Install cdefense
+
+    ```sh
+    helm install cdefense cdefense/cdefense -f cdefense/values.yaml --debug
+    ```
 
 ## Install kafka
 
@@ -27,63 +98,25 @@ There are three main pre-requisites for a production grade cdefense installation
     ```sh
     helm repo add bitnami https://charts.bitnami.com/bitnami
     ```
-- (optional) create/edit `values.yaml`
+- create/edit values.yaml
 
+    ```sh
+    touch kafka/values.yaml
     ```
+- Edit values.yaml for ex. add a nodeSelector
+
+    ```sh
+    vi kafka/values.yaml
+    ```
+
+    ```yaml
     nodeSelector:
       label: external
     ```
 - Install kafka helm
 
     ```sh
-    helm install kafka bitnami/kafka -f values.yaml
-    ```
-## Install cdefense
-
-- add cdefense helm repo
-
-    ```sh
-    helm repo add cdefense https://clouddefenseai.github.io/charts/  
-    ```
-
-- update repos
-
-    ```sh
-    helm repo update
-    ```
-
-- clone the repo
-
-    ```
-    git clone https://github.com/CloudDefenseAI/charts
-    ```
-- create roles, role binding and service accounts
-
-    ```sh
-    kubectl apply -f charts/cdefense/rbac
-    ```
-
-- create secrets
-
-    ```sh
-    kubectl apply -f charts/cdefense/secrets
-    ```
-- create/edit values.yaml in dump (git ignored)
-
-    ```sh
-    cp cdefense/values.yaml dump/values.yaml
-    ```
-- make changes to values.yaml in dump (git ignored)
-- Install cdefense helm from git repo
-
-    ```sh
-    helm install cdefense cdefense -f dump/values.yaml --debug
-    ```
-
-- Install cdefense from helm repo
-
-    ```
-    helm install cdefense cdefense/cdefense -f values.yaml --debug
+    helm install kafka bitnami/kafka -f kafka/values.yaml
     ```
 
 ## Configure Social Authentication
