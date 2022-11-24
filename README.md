@@ -71,25 +71,19 @@ There are three main pre-requisites for a production grade cdefense installation
 - create/edit values.yaml in dump (git ignored)
 
     ```sh
-    cp values.yaml dump/values.yaml
+    cp cdefense/values.yaml dump/values.yaml
     ```
 - make changes to values.yaml in dump (git ignored)
-- Install cdefense helm
+- Install cdefense helm from git repo
 
     ```sh
-    helm install cdefense cdefense --debug
+    helm install cdefense cdefense -f dump/values.yaml --debug
     ```
 
-    or
-
-    ```sh
-    helm upgrade cdefense cdefense/cdefense --debug
-    ```
-
-    or
+- Install cdefense from helm repo
 
     ```
-    helm upgrade cdefense cdefense/cdefense dump/values.yaml --debug
+    helm install cdefense cdefense/cdefense -f values.yaml --debug
     ```
 
 ## Configure Social Authentication
