@@ -105,6 +105,11 @@ spec:
               configMapKeyRef:
                 name: authservice-config
                 key: AUTH_DEPLOYMENT_MODE_DOCKER
+          - name: NEW_RELIC_APP_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: authservice-config
+                key: NEW_RELIC_APP_NAME
           - name: CLOUDDEFENSE_EMAIL_SENDGRID_KEY
             valueFrom:
               secretKeyRef:
