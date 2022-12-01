@@ -7,7 +7,6 @@ New Feature :
 Users can see organization reports in a new view with customization. 
 User can see team report with customized view
 Login and sign up screen is improved with new design
-Hackerview 
 
 New Improvement :
 
