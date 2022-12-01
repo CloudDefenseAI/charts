@@ -133,7 +133,7 @@ spec:
             name: uptime
             port:
               number: 80
-  - host: {{ if .Values.recommendation.hostname }}"{{ .Values.recommendation.hostname }}"{{- else }}"recommendation.{{ .Values.hostname }}"{{- end }}
+  - host: {{ if .Values.recommendation.hostname }}"{{ .Values.recommendation.hostname }}"{{- else }}"recommendation.{{ .Values.domain }}"{{- end }}
     http:
       paths:
       - path: /
