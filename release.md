@@ -1,15 +1,16 @@
-Release Date : 28.11.2022
+Release Date : 05.12.2022
 
-Release Notes : 4.6.3
+Release Notes : 4.6.4
 
 New Feature :
 
-Users can see organization reports in a new view with customization. 
-User can see team report with customized view
-Login and sign up screen is improved with new design
+Ability to add comments to vulnerabilities for users.
+Ability to see application rules in compliance.
+Dependency tree visualization with version and parent-child relation.
 
 New Improvement :
 
-Bulk user invitation fixed 
-Reset password for new user invitation fixed for authentication. 
-Reports generation fixed with different cards. 
+Allowed list requests were improved.
+Application and team reports were improved.
+Scan improvements.
+SCA licenses improvements in detection and display.
