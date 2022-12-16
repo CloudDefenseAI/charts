@@ -83,7 +83,7 @@ spec:
         #      memory: "1G"
         #      cpu: "250m"
         #    limits:
-        #      memory: "2G"
+        #      memory: "1G"
   volumeClaimTemplates:
   - apiVersion: v1
     kind: PersistentVolumeClaim

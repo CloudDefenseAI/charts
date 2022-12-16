@@ -270,7 +270,7 @@ spec:
       #      memory: "1G"
       #      cpu: "500m"
       #    limits:
-      #      memory: "2G"
+      #      memory: "1G"
       - name: data
         image: {{ .Values.data.image }}:{{ .Values.version }}
         imagePullPolicy: Always
@@ -309,10 +309,10 @@ spec:
           value: "8081"
         # resources:
         #   requests:
-        #     memory: "0.75G"
+        #     memory: "1G"
         #     cpu: "250m"
         #   limits:
-        #     memory: "2G"
+        #     memory: "1G"
       volumes:
       - name: bootstrap
         emptyDir: {}
