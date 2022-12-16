@@ -85,7 +85,6 @@ spec:
     #        cpu: "250m"
     #      limits:
     #        memory: "1G"
-    #        cpu: "1"
       initContainers:
       - name: check-graphql
         image: radial/busyboxplus:curl

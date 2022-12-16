@@ -189,7 +189,6 @@ spec:
         #      cpu: "500m"
         #    limits:
         #      memory: "2G"
-        #      cpu: "1"
       initContainers:
         - name: check-db
           image: postgres:14

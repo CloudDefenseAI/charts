@@ -271,7 +271,6 @@ spec:
       #      cpu: "500m"
       #    limits:
       #      memory: "2G"
-      #      cpu: "1"
       - name: data
         image: {{ .Values.data.image }}:{{ .Values.version }}
         imagePullPolicy: Always
@@ -309,12 +308,11 @@ spec:
         - name: PORT
           value: "8081"
         # resources:
-        #  requests:
-        #    memory: "0.75G"
-        #    cpu: "250m"
-        #  limits:
-        #    memory: "2G"
-        #    cpu: "500m"
+        #   requests:
+        #     memory: "0.75G"
+        #     cpu: "250m"
+        #   limits:
+        #     memory: "2G"
       volumes:
       - name: bootstrap
         emptyDir: {}
