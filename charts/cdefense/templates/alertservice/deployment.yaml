@@ -48,11 +48,11 @@ spec:
             secretKeyRef:
               key: DB_PASSWORD
               name: cdefense-secrets
-        - name: CLOUDDEFENSE_WEBCONSOLE_HOST_URL
+        - name: CLOUDDEFENSE_WEBCONSOLE_HOST_ROOT_URL
           valueFrom:
             configMapKeyRef:
               name: cdefense-config
-              key: CLOUDDEFENSE_WEBCONSOLE_HOST_URL
+              key: CLOUDDEFENSE_BASE_URL
        #  resources:
        #  requests:
        #     memory: "0.5G"
