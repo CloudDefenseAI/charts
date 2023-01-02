@@ -275,6 +275,11 @@ spec:
         image: {{ .Values.data.image }}:{{ .Values.version }}
         imagePullPolicy: Always
         env:
+        - name: CLOUDDEFENSE_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_BASE_URL
         - name: DB_CONNECTION_STRING
           valueFrom:
             configMapKeyRef:
