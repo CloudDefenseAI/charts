@@ -1,4 +1,4 @@
-version: "release-4.6.5"
+version: "release-4.6.6"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -170,7 +170,7 @@ recommendation:
   nodeSelector: cdefense
   tolerations: []
   replicas: 1
-  image: cdefense/recommendation-service
+  image: cdefense/recommendation-service-private
   version: "latest"
   service:
     type: NodePort

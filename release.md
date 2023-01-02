@@ -1,18 +1,15 @@
-Release Date : 16.12.2022
+Release Date : 30.12.2022
+Release Notes : 4.6.6
 
-Release Notes : 4.6.5
-
-New feature List
-Users can see details of all the vulnerability by age from dashboard
-SANS 25 dashboard with percentage view is available now.
-Build policy is implemented for SANS 25
-Team report implementation for each team.
-Users can see Magic trace open source library info from dependency tree
-Super admin can give more info after the onboarding
-User can able to download OSS license in CSV file
-
-Improvements
-Improvements and optimized the organization report and team report.
-Scan data result improvement
-Dashboard improvements
-Dependency and license improvements for catching vulnerability
+JIRA ticket creation for vulnerabilities improvements.
+Application comprehensive report fixed and organized. 
+Organization report and widget improvement and optimization.
+Improve performance on hackerview
+Filter improvements on allowed list based on severity. 
+Project link added for every scan page, if that link is available. Users also can insert the project link. 
+Performance of the overall report improvement. 
+User management restructured and improved with functionality. 
+Audit trails improvements.
+Magic trace modal is improved and can see all vulnerabilities. 
+Scan result is improved. 
+Dependency and license improvements for catching vulnerability.
