@@ -28,7 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: newapi
-        image: {{ .Values.newapi.image }}:{{ .Values.newapi.version }}
+        image: {{ .Values.newapi.image }}:{{ .Values.version }}
         env:
         - name: SERVER_PORT
           value: "8080"

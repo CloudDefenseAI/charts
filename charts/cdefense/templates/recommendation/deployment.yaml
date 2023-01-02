@@ -28,7 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: recommendation
-        image: {{ .Values.recommendation.image }}:{{ .Values.recommendation.version }}
+        image: {{ .Values.recommendation.image }}:{{ .Values.version }}
         env:
         - name: POSTGRES_HOST
           valueFrom:

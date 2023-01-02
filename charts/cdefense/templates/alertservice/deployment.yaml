@@ -28,8 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: alertservice
-        image: {{ .Values.alertservice.image }}:{{ .Values.alertservice.version }}
-        # image:  cdefense/alert-service:latest
+        image: {{ .Values.alertservice.image }}:{{ .Values.version }}
         env:
         - name: KAFKA_SERVERS
           value: "kafka:9092"
