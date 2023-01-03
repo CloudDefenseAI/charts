@@ -1,5 +1,5 @@
 Release Date : 30.12.2022
-Release Notes : 4.6.6
+Release Notes : 4.6.7
 
 JIRA ticket creation for vulnerabilities improvements.
 Application comprehensive report fixed and organized. 
