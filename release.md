@@ -1,15 +1,18 @@
-Release Date : 30.12.2022
-Release Notes : 4.6.7
+Release Date : 23.01.2023
+Release Notes : 4.6.8
 
-JIRA ticket creation for vulnerabilities improvements.
-Application comprehensive report fixed and organized. 
-Organization report and widget improvement and optimization.
-Improve performance on hackerview
-Filter improvements on allowed list based on severity. 
-Project link added for every scan page, if that link is available. Users also can insert the project link. 
-Performance of the overall report improvement. 
-User management restructured and improved with functionality. 
-Audit trails improvements.
-Magic trace modal is improved and can see all vulnerabilities. 
-Scan result is improved. 
-Dependency and license improvements for catching vulnerability.
+Improved filter styles in applications details.
+Filter on applications list page by build policy were added.
+Sans 25 chart fix.
+Improvements in vulnerabilities by age chart.
+Allowed list for API scan fix.
+UX improvements in team management.
+License search fix.
+Added default application name it the app settings.
+Added cve to title on remediation tab.
+Improved requested exception reviewing process.
+Added First and Last name in User Invite.
+Security improvements.
+Improved retest.
+Fix counts in Reports page.
+Vulnerability Data improvement.
