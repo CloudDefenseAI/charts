@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   cdefense:
   - apiVersion: v2
+    appVersion: 4.6.8
+    created: "2023-01-23T10:52:42.19717366Z"
+    description: A Helm chart for Kubernetes
+    digest: 76b4f8e5367dc66e75c6ebf769f322c5d84a12e0bfe196c34528b4b96d46b3b7
+    name: cdefense
+    type: application
+    urls:
+    - https://github.com/CloudDefenseAI/charts/releases/download/cdefense-4.6.8/cdefense-4.6.8.tgz
+    version: 4.6.8
+  - apiVersion: v2
     appVersion: 4.6.7
     created: "2023-01-03T11:50:20.293221991Z"
     description: A Helm chart for Kubernetes
@@ -241,4 +251,4 @@ entries:
     urls:
     - https://github.com/CloudDefenseAI/charts/releases/download/cdefense-0.1.1/cdefense-0.1.1.tgz
     version: 0.1.1
-generated: "2023-01-03T11:50:20.293374999Z"
+generated: "2023-01-23T10:52:42.197810469Z"
