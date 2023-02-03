@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: preinstall-hook
+   annotations:
+       "helm.sh/hook": "pre-install"
+spec:
+  containers:
+  - name: pre-install-container
+    image: bitnami/kubectl:latest
+    # image: busybox
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/sh", "-c"]
+    args:
+      - num_jobs=$(kubectl get jobs --field-selector status.successful=0 --output json | jq -j '.items | length')
+      - while [[ "$num_jobs" > 0 ]];do;echo "waiting for running jobs to complete";sleep 20;num_jobs=$(kubectl get jobs --field-selector status.successful=0 --output json | jq -j '.items | length');done
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 0
