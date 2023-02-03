@@ -13,6 +13,7 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
       - num_jobs=$(kubectl get jobs --field-selector status.successful=0 --output json | jq -j '.items | length')
-      - while [[ "$num_jobs" > 0 ]];do;echo "number running jobs - $num_jobs"; echo "waiting for running jobs to complete";sleep 20;num_jobs=$(kubectl get jobs --field-selector status.successful=0 --output json | jq -j '.items | length');done
+      - echo "number running jobs - $num_jobs"
+      - while [[ "$num_jobs" > 0 ]];do;echo "waiting for running jobs to complete";sleep 20;num_jobs=$(kubectl get jobs --field-selector status.successful=0 --output json | jq -j '.items | length');echo "number running jobs - $num_jobs";done
   restartPolicy: Never
   terminationGracePeriodSeconds: 0
