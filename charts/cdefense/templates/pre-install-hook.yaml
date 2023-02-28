@@ -3,7 +3,7 @@ kind: Pod
 metadata:
    name: preinstall-hook
    annotations:
-    "helm.sh/hook": "pre-install",
+    "helm.sh/hook": "pre-install"
     "helm.sh/hook": "pre-upgrade"
 spec:
   containers:
