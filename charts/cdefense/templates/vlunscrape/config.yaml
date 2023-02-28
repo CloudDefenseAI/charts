@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vulnscrape-config
+  labels:
+    app: vulnscrape
+data:
+  DB_CONNECTION_STRING: "jdbc:postgresql://db:5432/cdefense_vulnerability"
+  DB_DRIVER: "org.postgresql.Driver"
+  DB_USER: "postgres"
+  ENVIRONMENT_NAME: "prod"
+  SNYK_JOB_CRON_EXPRESSION: "0 0 23 * * *"
+  DATAJOB_WEBHOOK_URL: "https://discord.com/api/webhooks/1006160865386582077/HndjuqofW-wYXspUb5_iv-AJN46UojZZvQDksz1a2cgvx1Q1lUJkdZ_IhZrlsh_ytKKO"

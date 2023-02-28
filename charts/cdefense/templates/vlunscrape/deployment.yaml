@@ -1,0 +1,74 @@
+{{ if .Values.vulnscrape.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vulnscrape
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  selector:
+    matchLabels:
+      app: vulnscrape
+  replicas: {{ .Values.vulnscrape.replicas }}
+  template:
+    metadata:
+      labels:
+        app: vulnscrape
+
+    spec:
+      {{- if .Values.vulnscrape.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.vulnscrape.nodeSelector }}
+      {{- end }}
+      {{- if .Values.vulnscrape.tolerations }}
+      tolerations:
+{{ toYaml .Values.vulnscrape.tolerations | indent 8 }}
+      {{- end }}
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: vulnscrape
+        image: {{ .Values.vulnscrape.image }}:{{ .Values.vulnscrape.version }}
+        env:
+        - name: DB_CONNECTION_STRING
+          valueFrom:
+            configMapKeyRef:
+                name: vulnscrape-config
+                key: DB_CONNECTION_STRING
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+                name: vulnscrape-config
+                key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: vulnscrape-secrets
+        - name: DB_DRIVER
+          valueFrom:
+            configMapKeyRef:
+              name: vulnscrape-config
+              key: DB_DRIVER
+        - name: VULNERABILITY_SCRAPER_SERVICE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: VULNERABILITY_SCRAPER_SERVICE_TOKEN
+              name: vulnscrape-secrets
+        - name: ENVIRONMENT_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: vulnscrape-config
+              key: ENVIRONMENT_NAME
+        - name: DATAJOB_WEBHOOK_URL
+          valueFrom:
+            configMapKeyRef:
+              name: vulnscrape-config
+              key: DATAJOB_WEBHOOK_URL
+        - name: SNYK_JOB_CRON_EXPRESSION
+          valueFrom:
+            configMapKeyRef:
+              name: vulnscrape-config
+              key: SNYK_JOB_CRON_EXPRESSION
+---
+{{ end }}

@@ -1,4 +1,4 @@
-version: "release-4.6.8"
+version: "release-4.7.0"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -234,3 +234,22 @@ admin:
       maxReplicas: 3
       targetCPUUtilizationPercentage: 80
       targetMemoryUtilizationPercentage: 80
+vulnscrape:
+  enabled: true
+  nodeSelector: cdefense
+  tolerations: []
+  replicas: 1
+  image: cdefense/vulnerability-scraper
+  version: "prod"
+  service:
+    type: NodePort
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80

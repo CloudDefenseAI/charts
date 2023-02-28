@@ -317,6 +317,13 @@ spec:
               key: HASURA_GRAPHQL_ADMIN_SECRET 
         - name: PORT
           value: "8081"
+        - name: VULNERABILITY_SCRAPER_SERVICE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vulnscrape-secrets
+              key: VULNERABILITY_SCRAPER_SERVICE_TOKEN
+        - name: VULNERABILITY_SCRAPER_SERVICE_HOST
+          value: "http://vulnscrape/"
         # resources:
         #   requests:
         #     memory: "1G"
