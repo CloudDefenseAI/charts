@@ -115,6 +115,8 @@ api:
     region: us-east-1
     bucket: cdefense-vulnerability-data-new
     endpoint: https://cdefense-vulnerability-data-new.s3.us-east-1.amazonaws.com
+  vuln:
+    host: "https://vuln-console.clouddefenseai.com"
   logs:
     region: us-west-2
     bucket: cdefense-cli-logs
@@ -234,22 +236,3 @@ admin:
       maxReplicas: 3
       targetCPUUtilizationPercentage: 80
       targetMemoryUtilizationPercentage: 80
-vulnscrape:
-  enabled: true
-  nodeSelector: cdefense
-  tolerations: []
-  replicas: 1
-  image: cdefense/vulnerability-scraper
-  version: "prod"
-  service:
-    type: NodePort
-    ports:
-    - name: http
-      port: 80
-      targetPort: 8080
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 3
-    targetCPUUtilizationPercentage: 80
-    targetMemoryUtilizationPercentage: 80
