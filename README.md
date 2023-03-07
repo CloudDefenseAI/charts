@@ -19,6 +19,10 @@ There are three main pre-requisites for a production grade cdefense installation
     - **DO NOT** obscure it behind a DNS as applications will be unable to connect to the database
 - **DO NOT** change Database password or URI after helm install
 
+## Install Helm Hooks
+
+
+
 ## Install cdefense
 
 ### Install cdefense from git repo
