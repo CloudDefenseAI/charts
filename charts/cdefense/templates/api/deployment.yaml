@@ -268,6 +268,11 @@ spec:
               name: scan-server-secrets
               key: BITBUCKET_APPLICATION_SECRET
               optional: true
+        - name: MAX_SCAN_PER_USER
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: MAX_SCAN_PER_USER
         ports:
         - containerPort: 8080
       #  resources:

@@ -1,4 +1,4 @@
-version: "release-4.7.0"
+version: "release-4.7.1"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -110,7 +110,7 @@ api:
   cyberthoth:
     image: cdefense/cyberthoth:dev
   fullscan:
-    image: cdefense/fullscan:prod
+    image: cdefense/fullscan:dev
   data:
     region: us-east-1
     bucket: cdefense-vulnerability-data-new
