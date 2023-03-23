@@ -1,23 +1,21 @@
-Release Date : 28.02.2023
-Release Notes : 4.7.0
+Release Date : 23.03.2023
+Release Notes : 4.7.1
 
 New feature list
-- Developed new Application summary page
-- Updated UI on Audit Logs page (search and filter addition)
-- Updated release process: no active jobs should be interrupted while update
+- Added Audit Logs for Team User Roles
+- Added Branch Scanning
+- Added Vulnerabilities reports with download functionality
+- Added navigation to Vulnerability Distribution & Vulnerability trends dashboard charts
+- New UI for Exception Requests
+- New UI for Application Report
+- Restructured Management settings section
+- Added Request & Response in DAST & API scans vulnerabilities results
+- Added Grouping By URL for DAST & API
+
 
 Improvements
-- Improvements in Vulnerabilities Data
-- Fixed issues related to Audit logs
-- Fixed issues related to new Application UI page
-- Fixed issues related to Organization Settings
-- Fixed issues related to User Profiles Settings
-- Fixed issues related to SCM Integration
-- Fixed issues related to SSO configuration
-- Fixed issues related to Compliance Policy & Rules issues
-- Fixed issues related to Download CSV & PDF reports
-- Fixed issues related to different users role permissions
-- Fixed issues related to different types of Scans SAST/DAST/API/DOCKER
-- Fixed issues related to Application General Settings
-- Fixed issues related to filters & Search functionality
-- Fixed issues related to History of DAST/API/Docker Scans
+- Improvement in Audit logs,Notifications
+- Fixed issues Exclude functionality,
+- Fixed JMESPath package issue,
+- Fixed  Exposed keys issues
+- Fixed  Scan history issue for SCA
