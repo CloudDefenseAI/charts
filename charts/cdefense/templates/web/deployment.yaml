@@ -68,6 +68,11 @@ spec:
             configMapKeyRef:
                 name: cdefense-config
                 key: CLOUDDEFENSE_WEBCONSOLE_ONPREM_ENABLED
+        - name: CUSTOM_VENDOR
+          valueFrom:
+            configMapKeyRef:
+                name: cdefense-config
+                key: CUSTOM_VENDOR
         livenessProbe:
           exec:
             command:
