@@ -28,7 +28,7 @@ spec:
       - name: regcred
       containers:
       - name: web
-        image: {{ .Values.web.image }}:{{ .Values.version }}
+        image: {{ .Values.web.image }}:{{ .Values.web.version }}
         imagePullPolicy: Always
         args:
         - ./run.sh

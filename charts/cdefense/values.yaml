@@ -192,6 +192,7 @@ web:
   tolerations: []
   replicas: 1
   image: cdefense/webconsole
+  version: "release-4.7.1"
   service:
     type: NodePort
     ports:
