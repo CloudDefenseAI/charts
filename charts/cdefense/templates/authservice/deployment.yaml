@@ -29,6 +29,7 @@ spec:
       containers:
         - name: authservice
           image: {{ .Values.authservice.image }}:{{ .Values.version }}
+          imagePullPolicy: Always
           env:
           - name: POSTGRE_DB_URL
             valueFrom:
