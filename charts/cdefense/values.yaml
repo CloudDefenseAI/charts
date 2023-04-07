@@ -108,9 +108,9 @@ api:
       port: 80
       targetPort: 8080
   cyberthoth:
-    image: cdefense/cyberthoth:dev
+    image: cdefense/cyberthoth:prod
   fullscan:
-    image: cdefense/fullscan:dev
+    image: cdefense/fullscan:prod
   data:
     region: us-east-1
     bucket: cdefense-vulnerability-data-new
