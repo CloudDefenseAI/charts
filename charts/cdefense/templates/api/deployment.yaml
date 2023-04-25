@@ -100,12 +100,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: scan-server-config
-              key: CYBERTHOTH_SCAN_DOCKER_IMAGE
-        - name: CYBERTHOTH_SCAN_DOCKER_IMAGE
+              key: DAST_SCAN_DOCKER_IMAGE
+        - name: API_SCAN_DOCKER_IMAGE
           valueFrom:
             configMapKeyRef:
               name: scan-server-config
-              key: CYBERTHOTH_SCAN_DOCKER_IMAGE
+              key: API_SCAN_DOCKER_IMAGE
         - name: FULL_SCAN_DOCKER_IMAGE
           valueFrom:
             configMapKeyRef:

@@ -1,4 +1,4 @@
-version: "release-4.7.2"
+version: "release-4.7.3"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -107,10 +107,12 @@ api:
     - name: http
       port: 80
       targetPort: 8080
-  cyberthoth:
-    image: cdefense/cyberthoth:prod
+  apiscan:
+    image: cdefense/api-v2
+  dast:
+    image: cdefense/dast-v2
   fullscan:
-    image: cdefense/fullscan:prod
+    image: cdefense/fullscan
   data:
     region: us-east-1
     bucket: cdefense-vulnerability-data-new
@@ -192,7 +194,7 @@ web:
   tolerations: []
   replicas: 1
   image: cdefense/webconsole
-  version: "release-4.7.2"
+  version: "release-4.7.3"
   service:
     type: NodePort
     ports:
