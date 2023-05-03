@@ -29,6 +29,7 @@ spec:
       containers:
       - name: recommendation
         image: {{ .Values.recommendation.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
         env:
         - name: POSTGRES_HOST
           valueFrom:

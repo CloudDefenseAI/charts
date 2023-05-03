@@ -29,6 +29,7 @@ spec:
       containers:
       - name: newapi
         image: {{ .Values.newapi.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
         env:
         - name: SERVER_PORT
           value: "8080"

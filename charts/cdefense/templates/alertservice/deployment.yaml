@@ -29,6 +29,7 @@ spec:
       containers:
       - name: alertservice
         image: {{ .Values.alertservice.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
         env:
         - name: KAFKA_SERVERS
           value: "kafka:9092"

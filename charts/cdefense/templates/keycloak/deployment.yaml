@@ -26,6 +26,7 @@ spec:
       containers:
       - name: keycloak
         image: {{ .Values.keycloak.image }}:{{ .Values.keycloak.version }}
+        imagePullPolicy: Always
         command: ["/opt/keycloak/bin/kc.sh", "start-dev"] # Docker entrypoint equivalent
         # workingDir: "/checklist" # Docker working_dir equivalent
         # args:
