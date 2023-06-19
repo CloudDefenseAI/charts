@@ -1,11 +1,11 @@
-Release Date : 22.05.2023
-Release Notes : 4.7.4
+Release Date : 19.06.2023
+Release Notes : 4.7.5
 
 New feature list:
-- Added allowed rules expiration
-- Last branch update time now is displayed on UI
-- Added ability to provide info about project image through CLI
+- New Security Role "Security Auditor
+- Added Thrend Chart with fixes count and customisable date ranges
+- Implemented Scan Status on UI to see if scans are running constantly
 Improvements:
-- Improved overall performance 
-- Improved trend chart
-- Improved real time user interaction by adding WebSockets
+- Improved email notifications
+- Improved Import Logs to see all scans and branches
+- Improved application naming
