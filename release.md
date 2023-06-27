@@ -1,5 +1,5 @@
-Release Date : 19.06.2023
-Release Notes : 4.7.5
+Release Date : 27.06.2023
+Release Notes : 4.7.6
 
 New feature list:
 - New Security Role "Security Auditor
