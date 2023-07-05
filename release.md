@@ -1,11 +1,8 @@
-Release Date : 27.06.2023
-Release Notes : 4.7.6
+Release Date : 05.07.2023
+Release Notes : 4.7.7
 
 New feature list:
-- New Security Role "Security Auditor
-- Added Thrend Chart with fixes count and customisable date ranges
-- Implemented Scan Status on UI to see if scans are running constantly
+- Added csv report for application management page
 Improvements:
-- Improved email notifications
-- Improved Import Logs to see all scans and branches
-- Improved application naming
+- Improved application management page
+- Improved trend chart view
