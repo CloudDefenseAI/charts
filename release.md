@@ -1,8 +1,11 @@
-Release Date : 05.07.2023
-Release Notes : 4.7.7
+Release Date : 07.08.2023
+Release Notes : 4.7.8
 
 New feature list:
-- Added csv report for application management page
+- Added AI support for SAST Recommendations
+- Introduced integration with CloudSec Azure accounts
+- Implemented count display while using the cdefense online command
 Improvements:
-- Improved application management page
-- Improved trend chart view
+- Fixed an issue with the filter for SAST
+- Improved the Application Report
+- Enhanced logic for JavaScript SCA scans
