@@ -239,3 +239,30 @@ admin:
       maxReplicas: 3
       targetCPUUtilizationPercentage: 80
       targetMemoryUtilizationPercentage: 80
+
+ai:
+  enabled: true
+  nodeSelector: cdefense
+  tolerations: []
+  replicas: 1
+  image: cdefense/ai-service
+  version: "latest"
+  resources:
+    requests:
+      memory: "1300Mi"
+      cpu: "350m"
+    limits:
+      memory: "1640Mi"
+  #     cpu: "500m"
+  service:
+    type: NodePort
+    ports:
+      - name: http
+        port: 80
+        targetPort: 8084
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80

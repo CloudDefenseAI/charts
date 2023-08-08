@@ -1,0 +1,56 @@
+{{ if .Values.ai.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  selector:
+    matchLabels:
+      app: ai
+  # replicas: {{ .Values.ai.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0%
+      maxSurge: 25%
+  template:
+    metadata:
+      labels:
+        app: ai
+    spec:
+      {{- if .Values.ai.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.ai.nodeSelector }}
+      {{- end }}
+      {{- if .Values.ai.tolerations }}
+      tolerations:
+{{ toYaml .Values.ai.tolerations | indent 8 }}
+      {{- end }}
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: frontend
+        image: {{ .Values.ai.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
+        env:
+        # env_name can be - prod , develop, local, staging
+        #   - name: CD_GPT_TOKEN
+        #     valueFrom:
+        #       secretKeyRef:
+        #         key: CD_GPT_TOKEN
+        #         name: acs-secrets
+        #   - name: ACS_GPT_TOKEN
+        #     valueFrom:
+        #       secretKeyRef:
+        #         key: ACS_GPT_TOKEN
+        #         name: acs-secrets    
+        resources:
+            requests:
+              memory: {{ .Values.ai.resources.requests.memory}}
+              cpu: {{ .Values.ai.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.ai.resources.limits.memory}}
+        #       cpu: {{ .Values.ai.resources.limits.cpu }}
+{{ end }}

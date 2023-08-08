@@ -1,0 +1,15 @@
+{{ if .Values.ai.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai
+  labels:
+    app: ai
+spec:
+  type: {{ .Values.ai.service.type }}
+  selector:
+    app: ai
+  ports:
+    {{- .Values.ai.service.ports | toYaml | nindent 2 -}}
+{{ end }}
