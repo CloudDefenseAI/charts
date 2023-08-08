@@ -50,6 +50,11 @@ spec:
             secretKeyRef:
               key: DB_PASSWORD
               name: cdefense-secrets
+        - name: GPT_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+                name: cdefense-config
+                key: GPT_BASE_URL
         ports:
         - containerPort: 8080
   #      resources:
