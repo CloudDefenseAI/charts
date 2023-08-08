@@ -74,13 +74,6 @@ spec:
             name: api
             port:
               number: 80
-      - path: /ws/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: api
-            port:
-              number: 80
       - path: /scan/*
         pathType: ImplementationSpecific
         backend:
