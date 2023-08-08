@@ -34,18 +34,6 @@ spec:
       - name: frontend
         image: {{ .Values.ai.image }}:{{ .Values.version }}
         imagePullPolicy: Always
-        env:
-        # env_name can be - prod , develop, local, staging
-        #   - name: CD_GPT_TOKEN
-        #     valueFrom:
-        #       secretKeyRef:
-        #         key: CD_GPT_TOKEN
-        #         name: acs-secrets
-        #   - name: ACS_GPT_TOKEN
-        #     valueFrom:
-        #       secretKeyRef:
-        #         key: ACS_GPT_TOKEN
-        #         name: acs-secrets    
         resources:
             requests:
               memory: {{ .Values.ai.resources.requests.memory}}
