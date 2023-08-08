@@ -111,13 +111,3 @@ spec:
     #     resources: {}
     #     terminationMessagePath: /dev/termination-log
     #     terminationMessagePolicy: File
-      - name: check-authservice # WARNING checks logs of the authservice pod for "SERVER RUNNING" as such likelier to break as result if developer change the authservice pod logs
-        image: bitnami/kubectl:latest
-        command:
-          - sh
-          - -c
-          - POD=$(kubectl get pod -l app=authservice -o jsonpath="{.items[0].metadata.name}") && until kubectl logs $POD|grep "Server Running"; do echo "waiting for authservice"; sleep 10; done; echo connection to authservice ok 
-        imagePullPolicy: IfNotPresent
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
