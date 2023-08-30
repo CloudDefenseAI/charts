@@ -17,38 +17,6 @@ managedNodeGroups:
     privateNetworking: true
     minSize: 1
     maxSize: 4
-  # - name: external
-  #   labels: { label: external }
-  #   volumeEncrypted: true
-  #   instanceType: "t3.medium"
-  #   desiredCapacity: 1
-  #   privateNetworking: true
-  #   minSize: 1
-  #   maxSize: 4
-  # - name: auth
-  #   labels: { label: auth }
-  #   volumeEncrypted: true
-  #   instanceType: "t3.medium"
-  #   desiredCapacity: 1
-  #   privateNetworking: true
-  #   minSize: 1
-  #   maxSize: 4
-  # - name: api
-  #   labels: { label: api }
-  #   volumeEncrypted: true
-  #   instanceTypes: ["m5.large"]
-  #   desiredCapacity: 1
-  #   privateNetworking: true
-  #   minSize: 1
-  #   maxSize: 4
-  # - name: web
-  #   labels: { label: web }
-  #   volumeEncrypted: true
-  #   instanceType: "t3.small"
-  #   desiredCapacity: 1
-  #   privateNetworking: true
-  #   minSize: 1
-  #   maxSize: 4
   - name: jobs
     labels: { label: job }
     spot: true
