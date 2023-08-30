@@ -21,7 +21,7 @@ managedNodeGroups:
     labels: { label: job }
     spot: true
     volumeEncrypted: true
-    instanceTypes: ["c5.xlarge"]
+    instanceTypes: ["t3.xlarge"]
     desiredCapacity: 1
     privateNetworking: true
     minSize: 1
