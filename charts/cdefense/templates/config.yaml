@@ -89,3 +89,4 @@ data:
   CLOUDDEFENSE_WEBCONSOLE_ONPREM_ENABLED: cdefense
   CUSTOM_VENDOR: ""
   GPT_BASE_URL: "http://ai/"
+  OUTSIDE : "https://console.clouddefenseai.com"

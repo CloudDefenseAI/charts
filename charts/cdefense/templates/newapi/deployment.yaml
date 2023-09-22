@@ -55,6 +55,11 @@ spec:
             configMapKeyRef:
                 name: cdefense-config
                 key: GPT_BASE_URL
+        - name: OUTSIDE
+          valueFrom:
+            configMapKeyRef:
+                name: cdefense-config
+                key: OUTSIDE
         ports:
         - containerPort: 8080
   #      resources:
