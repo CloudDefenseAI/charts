@@ -1,11 +1,19 @@
-Release Date : 21.08.2023
-Release Notes : 4.7.9
+Release Date : 22.09.2023
+Release Notes : 4.8.0
 
 New feature list:
-- Added Context Map for Applications
-- Implemented reset on the filter in Vulnerabilities Trend Chart
+- Introduced bulk deletion for applications.
+- Enabled bulk creation of tags.
+- Implemented filters in integration repositories.
+- Enhanced the Applications page with a retest feature.
+- Extended scanning capabilities to automatically scan new images in Docker Hub, ECR, and GCR.
+- Introduced a filter to verify public and deployed applications.
+- Developed a feature to select default teams: automatically adding all existing and new users.
+
 
 Improvements:
-- Fixed an issue on the Branches page
-- Improved filters to avoid issues with date filter
-- Enhanced logic for logging in Audit Logs
+- Resolved a bug associated with shared organizations.
+- Addressed issues related to container scanning.
+- Enhanced integration compatibility with CloudSec.
+- Bug fixes in User Management.
+- Improved Application Management page.

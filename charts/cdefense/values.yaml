@@ -1,4 +1,4 @@
-version: "release-4.7.9"
+version: "release-4.8.0"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -194,7 +194,7 @@ web:
   tolerations: []
   replicas: 1
   image: cdefense/webconsole
-  version: "release-4.7.9"
+  version: "release-4.8.0"
   service:
     type: NodePort
     ports:
