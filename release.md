@@ -1,19 +1,13 @@
-Release Date : 22.09.2023
-Release Notes : 4.8.0
+Release Date : 16.10.2023
+Release Notes : 4.8.1
 
 New feature list:
-- Introduced bulk deletion for applications.
-- Enabled bulk creation of tags.
-- Implemented filters in integration repositories.
-- Enhanced the Applications page with a retest feature.
-- Extended scanning capabilities to automatically scan new images in Docker Hub, ECR, and GCR.
-- Introduced a filter to verify public and deployed applications.
-- Developed a feature to select default teams: automatically adding all existing and new users.
-
+- Email Notifications by Severity.
+- Organization-wide False Positive.
+- Unified Request Review Page.
 
 Improvements:
-- Resolved a bug associated with shared organizations.
-- Addressed issues related to container scanning.
-- Enhanced integration compatibility with CloudSec.
-- Bug fixes in User Management.
-- Improved Application Management page.
+- New Files/Direcrtories Exclusion for Application.
+- Improved Performance for GitHub/GitLab Integrations.
+- Fixed missing rules from Global SCA/SAST pages.
+- Adressed issue with BitBucket Integration.
