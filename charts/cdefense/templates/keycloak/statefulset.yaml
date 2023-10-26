@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: keycloak
   namespace: {{ .Release.Namespace | default "default"}}
@@ -7,6 +7,7 @@ spec:
   selector:
     matchLabels:
       app: keycloak
+  serviceName: keycloak
   replicas: {{ .Values.keycloak.replicas }}
   template:
     metadata:
