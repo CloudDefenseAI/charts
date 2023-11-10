@@ -1,13 +1,10 @@
-Release Date : 16.10.2023
-Release Notes : 4.8.1
+Release Date : 10.11.2023
+Release Notes : 4.8.2
 
 New feature list:
-- Email Notifications by Severity.
-- Organization-wide False Positive.
-- Unified Request Review Page.
+- Added a page for all dependencies and licenses.
+- Branch visibility now on the apps page.
 
 Improvements:
-- New Files/Direcrtories Exclusion for Application.
-- Improved Performance for GitHub/GitLab Integrations.
-- Fixed missing rules from Global SCA/SAST pages.
-- Adressed issue with BitBucket Integration.
+- Team admins can now approve allowlist requests.
+- Enhanced PHP and JS scan logic.
