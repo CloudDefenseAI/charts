@@ -1,7 +1,7 @@
 # How to Install CloudDefense.AI suite on a Kubernetes cluster
 Note: Term 'cdefense' as an analogy for the on-prem installation
 
-## PRE-REQUISITES (Customer Reponsibility)
+## STEP 1: PRE-REQUISITES (Customer Reponsibility)
 
 Required Skills/Person:
 1. **Mid to Senior DevOps resource/person with knowledge of Docker, Kubernetes, Helm, Cloud and your infrastructure.**
@@ -30,7 +30,7 @@ Note: How will you know that K8S is installed? Here is a K8S command to check if
 - In case of firewall blocking, you may need to whitelist urls: https://storage.googleapis.com/, https://gcr.io/v2/, https://registry.k8s.io/v2/, https://index.docker.io/v2/, https://github.com/CloudDefenseAI/charts, IP address of the NAT gateway
 
 
-## INSTALL CLOUDDEFENSE.AI (CloudDefense.ai on-prem installation)
+## STEP 2: INSTALL CLOUDDEFENSE.AI (CloudDefense.ai on-prem installation)
 Note: Term 'cdefense' as an analogy for the on-prem installation
 
 
