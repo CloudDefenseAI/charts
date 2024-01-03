@@ -2,7 +2,7 @@
 
 ## PRE-REQUISITES (Customer Reponsibility)
 
-Skills needed:
+Required Skills Person:
 1. **Mid to Senior DevOps resource/person with knowledge of Docker, Kubernetes, Helm, Cloud and your infrastructure.**
 
 Time needed:
