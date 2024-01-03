@@ -4,14 +4,16 @@
 
 There are three main pre-requisites for a production grade cdefense installation on-premises
 
-1. A managed Postgres instance (for AWS RDS db.r5.large)
+1. A managed Postgres instance (for ex. AWS RDS db.r5.large)
     1. enable automated backups
-2. A kubernetes cluster (/examples/eks) with at least two nodegroups
+2. A Kubernetes cluster (EKS/GKE/AKS) (/examples/eks) with at least two nodegroups
     1. node group for jobs
         1. each node has { label: job }
     2. node group for all else
         1. (optional) each node has { label: cdefense }
 3. A cluster auto-scaler
+
+Note: `kubectl get nodes`
 
 ## WARNINGS
 
