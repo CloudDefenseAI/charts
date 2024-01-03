@@ -1,4 +1,5 @@
 # How to Install CloudDefense.AI suite on a Kubernetes cluster
+Note: Term 'cdefense' as an analogy for the on-prem installation
 
 ## PRE-REQUISITES (Customer Reponsibility)
 
