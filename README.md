@@ -26,7 +26,7 @@ Note: How will you know that K8S is installed? Here is a K8S command to check if
 - Database URI has to be the Internal URI valid inside the private network
     - **DO NOT** obscure it behind a DNS as applications will be unable to connect to the database
 - **DO NOT** change Database password or URI after helm install
-- In case of firewall blocking, you may need to whitelist urls: https://storage.googleapis.com/, https://gcr.io/v2/, https://registry.k8s.io/v2/, https://index.docker.io/v2/, https://github.com/CloudDefenseAI/charts
+- In case of firewall blocking, you may need to whitelist urls: https://storage.googleapis.com/, https://gcr.io/v2/, https://registry.k8s.io/v2/, https://index.docker.io/v2/, https://github.com/CloudDefenseAI/charts, IP address of the NAT gateway
 
 
 ## INSTALL CLOUDDEFENSE.AI (CloudDefense.ai on-prem installation)
