@@ -2,13 +2,11 @@
 
 ## PRE-REQUISITES (Customer Reponsibility)
 
-Required Skills Person:
+Required Skills/Person:
 1. **Mid to Senior DevOps resource/person with knowledge of Docker, Kubernetes, Helm, Cloud and your infrastructure.**
+2. Time needed: Approx 2 hours for Pre-requisites, Approx 2 hours for CloudDefense.ai HELM chart. May also require a video call for debugging session
 
-Time needed:
-1. Approx 2 hours
-
-There are three main pre-requisites for a production grade cdefense installation on-premises
+There are three main pre-requisites for a cdefense installation on-premises
 
 1. A managed Postgres instance (for ex. AWS RDS db.r5.large) (Postgres is a Relational DB. Learn more about what is Postgres: https://www.postgresql.org/)
     1. enable automated backups
@@ -18,6 +16,8 @@ There are three main pre-requisites for a production grade cdefense installation
     2. node group for all else
         1. (optional) each node has { label: cdefense }
 3. A cluster auto-scaler
+
+Excel sheet with minimum infrastructure requirements: https://docs.google.com/spreadsheets/d/13R4DrVM6CfEgrlf3A7XDCrTNo8Aqq8DPU3Ne7FtHlgw/edit?usp=sharing
 
 Note: How will you know that K8S is installed? Here is a K8S command to check if your K8S cluster is up and running : `kubectl get nodes`
 
