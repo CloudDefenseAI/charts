@@ -22,7 +22,7 @@ Excel sheet with minimum infrastructure requirements: https://docs.google.com/sp
 
 Note: How will you know that K8S is installed? Here is a K8S command to check if your K8S cluster is up and running : `kubectl get nodes`
 
-## WARNINGS & DEBUGGING
+### WARNINGS & DEBUGGING
 
 - Database URI has to be the Internal URI valid inside the private network
     - **DO NOT** obscure it behind a DNS as applications will be unable to connect to the database
