@@ -1,31 +1,37 @@
-# How to Install CloudDefense suite on a Kubernetes cluster
+# How to Install CloudDefense.AI suite on a Kubernetes cluster
 
-## Pre-requisites
+## PRE-REQUISITES (Customer Reponsibility)
+
+Skills needed:
+1. Mid to Senior DevOps resource/person with knowledge of Docker, Kubernetes, Helm, Cloud and your infrastructure.
+
+Time needed:
+1. Approx 2 hours
 
 There are three main pre-requisites for a production grade cdefense installation on-premises
 
-1. A managed Postgres instance (for ex. AWS RDS db.r5.large)
+1. A managed Postgres instance (for ex. AWS RDS db.r5.large) (Postgres is a Relational DB. Learn more about what is Postgres: https://www.postgresql.org/)
     1. enable automated backups
-2. A Kubernetes cluster (EKS/GKE/AKS) (/examples/eks) with at least two nodegroups
+2. A Kubernetes cluster (EKS/GKE/AKS) (/examples/eks) with at least two nodegroups. (Learn more about what is Kubernetes: https://kubernetes.io/)
     1. node group for jobs
         1. each node has { label: job }
     2. node group for all else
         1. (optional) each node has { label: cdefense }
 3. A cluster auto-scaler
 
-Note: `kubectl get nodes`
+Note: How will you know that K8S is installed? Here is a K8S command to check if your K8S cluster is up and running : `kubectl get nodes`
 
-## WARNINGS
+## WARNINGS & DEBUGGING
 
 - Database URI has to be the Internal URI valid inside the private network
     - **DO NOT** obscure it behind a DNS as applications will be unable to connect to the database
 - **DO NOT** change Database password or URI after helm install
-
-## Install Helm Hooks
-
+- In case of firewall blocking, you may need to whitelist urls: https://storage.googleapis.com/, https://gcr.io/v2/, https://registry.k8s.io/v2/, https://index.docker.io/v2/, https://github.com/CloudDefenseAI/charts
 
 
-## Install cdefense
+## INSTALL CLOUDDEFENSE.AI (CloudDefense.ai on-prem installation)
+Note: Term 'cdefense' as an analogy for the on-prem installation
+
 
 ### Install cdefense from git repo
 
