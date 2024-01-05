@@ -1,4 +1,4 @@
-# How to Install CloudDefense.AI DevSecOps on a Kubernetes cluster
+# How to Install CloudDefense.AI DevSecOps on a Kubernetes cluster (AWS specific)
 Note: Term 'cdefense' as an analogy for the on-prem installation
 
 ## STEP 1: PRE-REQUISITES (Customer Reponsibility)
