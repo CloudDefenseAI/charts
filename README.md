@@ -22,10 +22,10 @@ There are three main pre-requisites for a cdefense installation on-premises
 Excel sheet with minimum infrastructure requirements: https://docs.google.com/spreadsheets/d/13R4DrVM6CfEgrlf3A7XDCrTNo8Aqq8DPU3Ne7FtHlgw/edit?usp=sharing
 
 Confirming pre-requisites (How will you know that K8S is installed?): 
-    1. Here is a K8S command to check if your K8S cluster is up and running : `kubectl get nodes`
-    2. Here is a command to check if your K8S can access your Postgres DB : `pg_isready -d <db_name> -h <host_name> -p <port_number> -U <db_user>` 
-    3. Here is a command to check if load balancer controller is installed in the EKS cluster: `kubectl get deployment -n kube-system aws-load-balancer-controller`
-    4. Here is a command to check if your K8S can connect to the internet : `kubectl get ingress` and check the address column in the output if the values are generated.
+1. Here is a K8S command to check if your K8S cluster is up and running : `kubectl get nodes`
+2. Here is a command to check if your K8S can access your Postgres DB : `pg_isready -d <db_name> -h <host_name> -p <port_number> -U <db_user>`
+3. Here is a command to check if load balancer controller is installed in the EKS cluster: `kubectl get deployment -n kube-system aws-load-balancer-controller`
+4. Here is a command to check if your K8S can connect to the internet : `kubectl get ingress` and check the address column in the output if the values are generated.
     
 
 ### WARNINGS & DEBUGGING
