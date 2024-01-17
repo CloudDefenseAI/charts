@@ -273,6 +273,11 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: MAX_SCAN_PER_USER
+        - name: ONLINE_SCAN_POOL_SIZE
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: ONLINE_SCAN_POOL_SIZE
         ports:
         - containerPort: 8080
       #  resources:

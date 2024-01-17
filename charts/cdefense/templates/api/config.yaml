@@ -26,3 +26,4 @@ data:
   AWS_SCAN_S3_BUCKET: {{ .Values.api.logs.bucket }}
   VULNERABILITY_SCRAPER_SERVICE_HOST: {{ .Values.api.vuln.host}}
   MAX_SCAN_PER_USER: "10"
+  ONLINE_SCAN_POOL_SIZE: "20"
