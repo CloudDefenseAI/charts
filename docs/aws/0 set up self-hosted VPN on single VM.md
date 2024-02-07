@@ -9,7 +9,7 @@ AWS EC2 instance ubuntu 20.04
 
 In security group, open the port 22 (we will remove it down after), 443, 80
 
-![alt text](<Screenshot 2024-02-07 at 5.41.28 PM-1.png>)
+![alt text](vpn-security-group.png)png)
 
 ## SSH to VPN EC2 instance
 
