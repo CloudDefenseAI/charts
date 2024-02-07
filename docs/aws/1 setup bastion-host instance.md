@@ -8,7 +8,7 @@ AWS EC2 instance ubuntu 20.04
 
 In security group, open the port 22(remove other ports)
 
-![alt text](<Screenshot 2024-02-07 at 7.29.48 PM.png>)
+![alt text](images/Screenshot 2024-02-07 at 7.29.48 PM.png)
 
 ## SSH to Bastion-Host EC2 instance
 

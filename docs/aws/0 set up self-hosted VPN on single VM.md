@@ -9,7 +9,7 @@ AWS EC2 instance ubuntu 20.04
 
 In security group, open the port 22 (we will remove it down after), 443, 80
 
-![alt text](vpn-security-group.png)png)
+![alt text](images/vpn-security-group.png)png)
 
 ## SSH to VPN EC2 instance
 
@@ -70,7 +70,7 @@ sudo systemctl start mongod pritunl
 
 go to Pritnul UI at http://{public_IP_of_instance}/login#/servers
 
-![alt text](pritnl-setup-key.png)
+![alt text](images/pritnl-setup-key.png)
 
 ```sh
 sudo pritunl setup-key
@@ -88,11 +88,11 @@ sudo pritunl default-password
 
 After signing in the initial setup dialog will be shown. 
 
-![alt text](login.png)
+![alt text](images/login.png)
 
 change the username and password
 
-![alt text](change-password.png)
+![alt text](images/change-password.png)
 
 create an organization
 
