@@ -9,7 +9,7 @@ Required Skills/Person:
 
 There are three main pre-requisites for a cdefense installation on-premises
 
-1. A managed Postgres instance (for ex. AWS RDS db.r5.large) (Postgres is a Relational DB. Learn more about what is Postgres: https://www.postgresql.org/)
+1. A Managed Postgres instance (for ex. AWS RDS db.r5.large) (Postgres is a Relational DB. Learn more about what is Postgres: https://www.postgresql.org/)
     1. enable automated backups
 2. A Kubernetes cluster (EKS/GKE/AKS) that has access to the above DB and to the internet (/examples/eks) with at least two nodegroups. (Learn more about what is Kubernetes: https://kubernetes.io/)
     1. node group for jobs
