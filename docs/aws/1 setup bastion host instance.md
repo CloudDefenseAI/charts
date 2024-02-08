@@ -1,4 +1,4 @@
-# Setup tools required to create cluster and deploy 
+# setup tools required to create cluster
 
 ## Pre-requisities
 
