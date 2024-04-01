@@ -26,4 +26,4 @@ jobs:
           config: cr.yaml
           # charts_repo_url: xxxxxx
         env:
-          CR_TOKEN: "${{ secrets.TOKEN }}"
+          CR_TOKEN: "${{ secrets.TOKEN_GITHUB }}"
