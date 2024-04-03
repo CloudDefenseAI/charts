@@ -1,19 +1,13 @@
-Release Date : 06.03.2024
-Release Notes : 4.8.6
+Release Date : 02.04.2024
+Release Notes : 4.8.7
 
 New feature list:
-1) Import Logs Functionality on Organizational Level: We have made the import logs to show information for all Organization if `all teams` selector is enabled.
-2) New Field Addition on Application Page: We have included the last scan of the current branch and the last scan in the app with the branch name under the Application page.
-3) CTO Report TeamName: Added team name to CTO report.
-4) CTO Report False Positive: Added False positive column under CTO report.
-5) Time Series Graph: Updated time series graph with below 3 legends on daily basis, weekly basis, monthly basis, quarterly basis
-    - Open Vulnerability trend
-    - New  Vulnerability Identified trend
-    - Closed/Fixed  Vulnerability 
-6) Generate report for 30 days and 60 days
-7) Updates Team admin acess role: Team admin can now invite new user/existing team member to any team.
+1) Team admin to have access to delete applications: We have now provided access to team admin to delete applications.
+2) Access to delete an excluded path for Team Admin: We have now provided access to team admin to delete an excluded path.
+3) Added email notification update to show which branch was scanned: Added scanned branch information under scan email notification.
 
 Improvements:
-1) Fixed Audit Log Search By date Filter: We have resolved audit log search on date filter.
-2) Fixed the issue with parallel execution of scans: Fixed the CloudDefense processes hang issues with parallel execution of scans.
-3) Fixed Ruby still has false positives: Fixed false positive in the Ruby Gemfile.lock.
+1) Fixed allowed list in branches: We have made the allowed list to apply to all branches once it is marked for one.
+2) Fixed branch view: Fixed the branch view to show the Protected branches correctly.
+3) Fixed new vulnerabilities identified the next day: We have fixed the new vulnerabilities identified in the subsequent scan. The new vulnerabilities get highlighted with a "New" label.
+4) Merged SAST and DAST/API rules tabs on Global Rules Management page into one.
