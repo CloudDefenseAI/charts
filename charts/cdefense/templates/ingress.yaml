@@ -53,6 +53,14 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     {{ end }}
 spec:
+{{ if eq .Values.ingress.type "nginx" }}
+  tls:
+  - hosts:
+    - {{ .Values.hostname }}
+    - {{ if .Values.recommendation.hostname }}"{{ .Values.recommendation.hostname }}"{{- else }}"recommendation.{{ .Values.domain }}"{{- end }}
+    # - uptime-{{ .Values.hostname }}
+    secretName: cdefense-on-prem-tls
+{{ end }}
   rules:
   - host: {{ .Values.hostname }}
     http:
@@ -197,6 +205,12 @@ metadata:
     # certmanager.k8s.io/acme-dns01-provider: route53
     {{ end }}
 spec:
+{{ if eq .Values.ingress.type "nginx" }}
+  tls:
+  - hosts:
+    - graphql-{{ .Values.hostname }}
+    secretName: graphql-on-prem-tls
+{{ end }}
   rules:
   - host: graphql-{{ .Values.hostname }}
     http:
