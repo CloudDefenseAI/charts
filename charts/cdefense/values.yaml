@@ -13,6 +13,9 @@ ingress:
   type: "alb"
   alb:
     scheme: internet-facing
+  nginx:
+    class: nginx-external
+    certificate: letsencrypt-dev
 
 aws:
   certificatearn: ""
