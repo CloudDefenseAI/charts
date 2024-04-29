@@ -90,6 +90,7 @@ authservice:
       targetPort: 8080
 
 graphql:
+  enabled: true
   nodeSelector: cdefense
   tolerations: []
   image: cdefense/graphql
