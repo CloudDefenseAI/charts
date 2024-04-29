@@ -113,4 +113,4 @@ spec:
     #     terminationMessagePath: /dev/termination-log
     #     terminationMessagePolicy: File
 ---
-{ end }
+{{ end }}
