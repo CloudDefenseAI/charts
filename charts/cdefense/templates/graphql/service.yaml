@@ -12,5 +12,5 @@ spec:
     app: graphql
   ports:
 	{{- .Values.graphql.service.ports | toYaml | nindent 2 -}}
----
+
 {{ end }}
