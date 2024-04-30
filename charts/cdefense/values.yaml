@@ -14,8 +14,8 @@ ingress:
   alb:
     scheme: internet-facing
   nginx:
-    class: nginx-external
-    certificate: letsencrypt-dev
+    class: ""
+    certificate: ""
 
 aws:
   certificatearn: ""
@@ -175,6 +175,7 @@ alertservice:
     targetMemoryUtilizationPercentage: 80
 
 recommendation:
+  enabled: true
   nodeSelector: cdefense
   tolerations: []
   replicas: 1

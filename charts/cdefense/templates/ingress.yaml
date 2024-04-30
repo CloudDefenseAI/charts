@@ -145,6 +145,7 @@ spec:
             name: uptime
             port:
               number: 80
+  {{ if .Values.recommendation.enabled }}
   - host: {{ if .Values.recommendation.hostname }}"{{ .Values.recommendation.hostname }}"{{- else }}"recommendation.{{ .Values.domain }}"{{- end }}
     http:
       paths:
@@ -155,6 +156,7 @@ spec:
             name: recommendation
             port:
               number: 80
+  {{ end }}
 ---
 {{ if .Values.graphql.enabled }}
 ---

@@ -1,3 +1,5 @@
+{{ if .Values.recommendation.enabled }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -10,3 +12,5 @@ spec:
     app: recommendation
   ports:
     {{ .Values.recommendation.service.ports | toYaml | nindent 2 }}
+---
+{{ end }}
