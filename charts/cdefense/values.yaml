@@ -105,6 +105,7 @@ api:
   nodeSelector: cdefense
   tolerations: []
   image: cdefense/scan-api
+  version: "4.8.7.5"
   service:
     type: NodePort
     ports:

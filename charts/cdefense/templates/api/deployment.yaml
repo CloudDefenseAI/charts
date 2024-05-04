@@ -88,7 +88,7 @@ spec:
         terminationMessagePolicy: File
       containers:
       - name: api
-        image: {{ .Values.api.image }}:{{ .Values.version }}
+        image: {{ .Values.api.image }}:{{ .Values.api.version }}
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
