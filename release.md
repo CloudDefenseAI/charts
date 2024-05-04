@@ -1,5 +1,5 @@
 Release Date : 04.05.2024
-Release Notes : 4.8.7.5
+Release Notes : 4.8.7
 
 New feature list:
 1) Team admin to have access to delete applications: We have now provided access to team admin to delete applications.
