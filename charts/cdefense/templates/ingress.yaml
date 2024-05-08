@@ -121,6 +121,15 @@ spec:
             name: api
             port:
               number: 80
+      {{ if eq .Values.ingress.type "nginx" }}
+      - path: /integrations/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: api
+            port:
+              number: 80
+      {{ end }}
       - path: /api-v2/*
         pathType: ImplementationSpecific
         backend:
@@ -128,6 +137,15 @@ spec:
             name: newapi
             port:
               number: 80
+      {{ if eq .Values.ingress.type "nginx" }}
+      - path: /authentication/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: web
+            port:
+              number: 80
+      {{ end }}
       - path: /*
         pathType: ImplementationSpecific
         backend:
