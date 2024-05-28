@@ -82,6 +82,15 @@ spec:
             - "80"
           periodSeconds: 30
           timeoutSeconds: 3
+        readinessProbe:
+          exec:
+            command:
+            - nc
+            - -z
+            - 127.0.0.1
+            - "80"
+          periodSeconds: 30
+          timeoutSeconds: 3
         ports:
         - containerPort: 80
     #    resources:

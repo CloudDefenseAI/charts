@@ -62,6 +62,20 @@ spec:
                 key: OUTSIDE
         ports:
         - containerPort: 8080
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 35
+          periodSeconds: 15
+          failureThreshold: 10
+          successThreshold: 1
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 40
+          periodSeconds: 15
+          failureThreshold: 10
+          successThreshold: 1
   #      resources:
   #        requests:
   #          memory: "0.5G"

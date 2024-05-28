@@ -1,0 +1,15 @@
+{{ if .Values.alertservice.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertservice
+  labels:
+    app: alertservice
+spec:
+  type: {{ .Values.alertservice.service.type }}
+  selector:
+    app: alertservice
+  ports:
+    {{- .Values.alertservice.service.ports | toYaml | nindent 2 -}}
+{{ end }}

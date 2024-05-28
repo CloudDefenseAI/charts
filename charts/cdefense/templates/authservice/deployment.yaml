@@ -184,6 +184,20 @@ spec:
                 key: HASURA_GRAPHQL_ADMIN_SECRET
           ports:
           - containerPort: 8080
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 10
+            successThreshold: 1
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 70
+            periodSeconds: 15
+            failureThreshold: 10
+            successThreshold: 1
         #  resources:
         #    requests:
         #      memory: "2G"
