@@ -278,6 +278,11 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: ONLINE_SCAN_POOL_SIZE
+        - name: CDEFENSE_BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: CDEFENSE_BACKEND_URL
         ports:
         - containerPort: 8080
         livenessProbe:

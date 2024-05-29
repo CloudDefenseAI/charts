@@ -27,3 +27,5 @@ data:
   VULNERABILITY_SCRAPER_SERVICE_HOST: {{ .Values.api.vuln.host}}
   MAX_SCAN_PER_USER: "10"
   ONLINE_SCAN_POOL_SIZE: "20"
+  CDEFENSE_BACKEND_URL: "http://newapi"
+  CLOUDDEFENSE_NEWAPI_BASE_URL: https://{{ .Values.hostname }}/

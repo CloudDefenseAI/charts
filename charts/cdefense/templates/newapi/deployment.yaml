@@ -60,6 +60,11 @@ spec:
             configMapKeyRef:
                 name: cdefense-config
                 key: OUTSIDE
+        - name: CLOUDDEFENSE_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+                name: scan-server-config
+                key: CLOUDDEFENSE_NEWAPI_BASE_URL
         ports:
         - containerPort: 8080
         livenessProbe:
