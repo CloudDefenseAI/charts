@@ -53,20 +53,20 @@ spec:
             configMapKeyRef:
               name: cdefense-config
               key: CLOUDDEFENSE_BASE_URL
-        livenessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 15
-          failureThreshold: 10
-          successThreshold: 1
-        readinessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 65
-          periodSeconds: 15
-          failureThreshold: 10
-          successThreshold: 1
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: 8080
+        #   initialDelaySeconds: 60
+        #   periodSeconds: 15
+        #   failureThreshold: 10
+        #   successThreshold: 1
+        # readinessProbe:
+        #   tcpSocket:
+        #     port: 8080
+        #   initialDelaySeconds: 65
+        #   periodSeconds: 15
+        #   failureThreshold: 10
+        #   successThreshold: 1
        #  resources:
        #  requests:
        #     memory: "0.5G"
