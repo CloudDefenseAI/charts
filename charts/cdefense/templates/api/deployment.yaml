@@ -283,6 +283,21 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: CDEFENSE_BACKEND_URL
+        - name: K8_RESOURCES_REQUEST_MEMORY
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: K8_RESOURCES_REQUEST_MEMORY
+        - name: K8_RESOURCES_REQUEST_CPU
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: K8_RESOURCES_REQUEST_CPU
+        - name: K8_RESOURCES_LIMIT_MEMORY
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: K8_RESOURCES_LIMIT_MEMORY
         ports:
         - containerPort: 8080
         livenessProbe:
