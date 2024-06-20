@@ -1,19 +1,19 @@
-Release Date : 29.05.2024
-Release Notes : 4.8.8
+Release Date : 19.06.2024
+Release Notes : 4.8.9
 
-New feature list:
-1) Delta Scan
-2) Application team assignment: We have now provided application team assignment mechanism based on team pseudonym.
-3) Automatic Jira ticket creation: We have provided automatic Jira ticket creation for the new detected vulnerabilities, configurable to enable/disable at severities level.
-4) Recommendation/Solution under vulnerability report: We have provided recommendations under the CTO report.
-5) Multi select False Positive and Allowed list: We have added ability to select multiple vulnerabilities to mark as false positive and add to allowed list.
-6) DevSecOps configure with OKTA: We have provided SSO integration with OKTA. 
-7) Jira ticket having alert back to the vulnerability and show latest status: We have added a link back under the Jira ticket to have link back to the vulnerability for which it was created.
-8) Show "Age" of a vulnerability: We have added age detail, day wise to show the age of a vulnerability when it was first detected under CTO report.
-9) User to be able to request to add directories for exclusion: Added new interface that allows admins to manage your teammate's requests for excluding file-paths.
+New Features:
+
+1) Refactored Rule Management: We have refactored the Rule Management for both Global and Application level, making it more user friendly with filter option on scan types and languages.
+2) Integrate DAST with pipeline: The DAST scan can now be run under CI/CD pipeline via CLI, with scan result summary details.
+3) User details export to CSV: The user details can now be exported to CSV from under User Management.
+4) OWASP Top 10 slide-out code link: Added hyperlink for the OWASP Top 10 slide-out code link.
+5) Added newly found vulnerabilities filter: Added newly found vulnerabilities filter under Report > Vulnerabilities Report page. 
+6) Added count on filter under Vulnerabilities Report Page: Added resource count when selecting filter under Vulnerabilities Report Page for better readability.
+7) Added false-positive filter under Application overview page: We have added false-positive filter under Application overview page for better usability.
 
 Improvements:
-1) Application Page Refactor: We have refactored our Application page, adding branches and pull requests view on the expansion of the application from list. By clicking on the link icon next to the application name, users can navigate directly to the specific source. Additionally, users can now filter to view only branches or pull requests by using the buttons located below the application name.
-2) Fixed GitHub group name not coming for the repo name.
-3) Scan steps handling asynchronously, removing the bottle-neck for running multiple scans concurrently.
+
+1) Refactored APIs and added new indexes: We have refactored APIs and added new indexes to improve the latency seen.
+2) Bug Fixing on Backend: Fixed bugs across the application for better user experience.
+3) Fixes pagination bug under Dashboard > Vulnerabilities by Age: We have fixed the pagination bug found under Dashboard > Vulnerabilities by Age.
 4) Fixed list of UI issues.

@@ -88,7 +88,7 @@ spec:
         terminationMessagePolicy: File
       containers:
       - name: api
-        image: {{ .Values.api.image }}:{{ .Values.api.version }}
+        image: {{ .Values.api.image }}:{{ .Values.version }}
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -298,6 +298,60 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: K8_RESOURCES_LIMIT_MEMORY
+        - name: AWS_S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: AWS_S3_ENDPOINT
+        - name: DATAJOB_WEBHOOK_URL
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: DATAJOB_WEBHOOK_URL
+        - name: PROFILER_WEBHOOK_URL
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: PROFILER_WEBHOOK_URL
+        - name: CLOUDDEFENSE_CRYPT_BASE_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: CLOUDDEFENSE_CRYPT_BASE_SECRET
+              name: scan-server-secrets
+        - name: CLOUDDEFENSE_SENDGRID_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: SENDGRID_KEY
+              name: authservice-secrets
+        - name: CLOUDDEFENSE_SENDGRID_EMAIL
+          valueFrom:
+            configMapKeyRef:
+              key: CLOUDDEFENSE_SENDGRID_EMAIL
+              name: scan-server-config
+        - name: AWS_SCAN_S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SCAN_S3_ACCESS_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_SCAN_S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SCAN_S3_SECRET_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_DAST_UPLOAD_S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_DAST_UPLOAD_S3_ACCESS_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_DAST_UPLOAD_S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_DAST_UPLOAD_S3_SECRET_KEY
+              name: scan-server-secrets
+              optional: true
         ports:
         - containerPort: 8080
         livenessProbe:
@@ -371,6 +425,16 @@ spec:
             secretKeyRef:
               name: vulnscrape-secrets
               key: VULNERABILITY_SCRAPER_SERVICE_TOKEN
+        - name: DATAJOB_WEBHOOK_URL
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: DATAJOB_WEBHOOK_URL
+        - name: NVD_KEY
+          valueFrom:
+            secretKeyRef:
+              name: scan-server-secrets
+              key: NVD_KEY
         # resources:
         #   requests:
         #     memory: "1G"
