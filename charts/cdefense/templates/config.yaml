@@ -66,24 +66,9 @@ data:
   CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT: http://api.cdefense.svc.cluster.local
   {{ end }}
   {{ if .Values.ingress.enabled }}
-  CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: {{ if .Values.recommendation.hostname }}"https://{{ .Values.recommendation.hostname }}"{{- else }}"https://recommendation.{{ .Values.domain }}"{{- end }}
-  {{ else }}
-  CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT: http://recommendation.cdefense.svc.cluster.local
-  {{ end }}
-  {{ if .Values.ingress.enabled }}
   CLOUDDEFENSE_WEBCONSOLE_HOST_URL: https://{{ .Values.hostname }}/project-details
   {{ else }}
   CLOUDDEFENSE_WEBCONSOLE_HOST_URL: http://web.cdefense.svc.cluster.local/project-details
-  {{ end }}
-  {{ if .Values.ingress.enabled }}
-  CLOUDDEFENSE_ADMIN_API_URL: https://admin-{{ .Values.hostname }}
-  {{ else }}
-  CLOUDDEFENSE_ADMIN_API_URL: http://admin.cdefense.svc.cluster.local
-  {{ end }}
-  {{ if .Values.ingress.enabled }}
-  CLOUDDEFENSE_ADMIN_UI_URL: https://adminui-{{ .Values.hostname }}
-  {{ else }}
-  CLOUDDEFENSE_ADMIN_UI_URL: http://adminui.cdefense.svc.cluster.local
   {{ end }}
   CLOUDDEFENSE_WEBCONSOLE_AUTH_STAGE: dockerStaging
   CLOUDDEFENSE_WEBCONSOLE_ONPREM_ENABLED: cdefense

@@ -1,4 +1,4 @@
-version: "release-4.8.9"
+version: "release-4.9.0"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -89,18 +89,6 @@ authservice:
       port: 80
       targetPort: 8080
 
-graphql:
-  enabled: false
-  nodeSelector: cdefense
-  tolerations: []
-  image: cdefense/graphql
-  service:
-    type: NodePort
-    ports:
-    - name: http
-      port: 80
-      targetPort: 8080
-
 api:
   nodeSelector: cdefense
   tolerations: []
@@ -167,26 +155,6 @@ alertservice:
     - name: http
       port: 80
       targetPort: 8080
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 3
-    targetCPUUtilizationPercentage: 80
-    targetMemoryUtilizationPercentage: 80
-
-recommendation:
-  enabled: false
-  nodeSelector: cdefense
-  tolerations: []
-  replicas: 1
-  image: cdefense/recommendation-service
-  version: "latest"
-  service:
-    type: NodePort
-    ports:
-    - name: http
-      port: 80
-      targetPort: 3000
   autoscaling:
     enabled: false
     minReplicas: 1

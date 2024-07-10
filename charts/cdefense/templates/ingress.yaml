@@ -57,7 +57,6 @@ spec:
   tls:
   - hosts:
     - {{ .Values.hostname }}
-    - {{ if .Values.recommendation.hostname }}"{{ .Values.recommendation.hostname }}"{{- else }}"recommendation.{{ .Values.domain }}"{{- end }}
     # - uptime-{{ .Values.hostname }}
     secretName: cdefense-on-prem-tls
 {{ end }}
@@ -107,22 +106,6 @@ spec:
             name: api
             port:
               number: 80
-      - path: /integration/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: api
-            port:
-              number: 80
-      {{ if eq .Values.ingress.type "nginx" }}
-      - path: /integrations/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: api
-            port:
-              number: 80
-      {{ end }}
       - path: /api-v2/*
         pathType: ImplementationSpecific
         backend:
@@ -132,6 +115,13 @@ spec:
               number: 80
       {{ if eq .Values.ingress.type "nginx" }}
       - path: /authentication/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: web
+            port:
+              number: 80
+      - path: /integrations-list
         pathType: ImplementationSpecific
         backend:
           service:

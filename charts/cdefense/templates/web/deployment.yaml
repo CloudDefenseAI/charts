@@ -38,11 +38,6 @@ spec:
             configMapKeyRef:
                 name: cdefense-config
                 key: CLOUDDEFENSE_WEBCONSOLE_API_ENDPOINT
-        - name: RECOMMENDATIONS_ENDPOINT
-          valueFrom:
-            configMapKeyRef:
-                name: cdefense-config
-                key: CLOUDDEFENSE_RECOMMENDATIONS_ENDPOINT
         - name: API_ENDPOINT
           valueFrom:
             configMapKeyRef:
