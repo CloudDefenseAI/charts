@@ -103,6 +103,8 @@ api:
     image: cdefense/api-v2
   dast:
     image: cdefense/dast-v2
+    region: us-west-2
+    bucket: cdefense-dast-curl
   fullscan:
     image: cdefense/fullscan
   data:

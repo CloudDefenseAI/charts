@@ -24,6 +24,8 @@ data:
   AWS_S3_ENDPOINT: {{ .Values.api.data.endpoint }}
   AWS_SCAN_S3_REGION: {{ .Values.api.logs.region }}
   AWS_SCAN_S3_BUCKET: {{ .Values.api.logs.bucket }}
+  AWS_DAST_UPLOAD_S3_REGION: {{ .Values.api.dast.region }}
+  AWS_DAST_UPLOAD_S3_BUCKET: {{ .Values.api.dast.bucket }}
   VULNERABILITY_SCRAPER_SERVICE_HOST: {{ .Values.api.vuln.host}}
   MAX_SCAN_PER_USER: "10"
   ONLINE_SCAN_POOL_SIZE: "20"
