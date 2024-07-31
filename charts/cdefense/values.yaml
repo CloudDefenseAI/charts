@@ -1,4 +1,4 @@
-version: "release-4.9.0"
+version: "release-4.9.1"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -117,6 +117,12 @@ api:
     region: us-west-2
     bucket: cdefense-cli-logs
   job:
+    resource:
+      memory:
+        request: "3Gi"
+        limit: "4Gi"
+      cpu:
+        request: "2000m"
     nodeSelector:
       key: label
       value: job

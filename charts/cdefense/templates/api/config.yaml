@@ -31,9 +31,9 @@ data:
   ONLINE_SCAN_POOL_SIZE: "20"
   CDEFENSE_BACKEND_URL: "http://newapi"
   CLOUDDEFENSE_NEWAPI_BASE_URL: https://{{ .Values.hostname }}/
-  K8_RESOURCES_REQUEST_MEMORY: "3Gi"
-  K8_RESOURCES_REQUEST_CPU: "2000m"
-  K8_RESOURCES_LIMIT_MEMORY: "4Gi"
+  K8_RESOURCES_REQUEST_MEMORY: {{ .Values.api.job.resource.memory.request }}
+  K8_RESOURCES_REQUEST_CPU: {{ .Values.api.job.resource.cpu.request }}
+  K8_RESOURCES_LIMIT_MEMORY: {{ .Values.api.job.resource.memory.limit }}
   DATAJOB_WEBHOOK_URL: "https://discord.com/api/webhooks/1006160865386582077/HndjuqofW-wYXspUb5_iv-AJN46UojZZvQDksz1a2cgvx1Q1lUJkdZ_IhZrlsh_ytKKO"
   PROFILER_WEBHOOK_URL: "https://discord.com/api/webhooks/1102883054806114375/DwZqyzMTpYf66kMyQ47b7lgFLNFGfqmxQxEBfnfOZtH6cMJIFzoNw17pmQnG9OmNk9Tv"
   CLOUDDEFENSE_SENDGRID_EMAIL: "support-noreply@clouddefense.ai" 

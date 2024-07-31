@@ -1,21 +1,23 @@
-Release Date : 09.07.2024
-Release Notes : 4.9.0
+Release Date : 30.07.2024
+Release Notes : 4.9.1
 
 New Features:
 
-1) The ability to provide scan results under pull request: We have introduced the ability to provide scan results directly under pull request, giving the developer early insights into code analysis.
-2) Functionality for Team Admin to be able to assign applications to teams from under Team management: We have introduced the functionality for a team admin role to be able to change application assigned team to a different team the Team Admin is part of.
-3) Tags update for report: We have provided feature to have the associated tags with an application to be available as separate columns on checking the 'separateColumns' checkbox.
-4) Added note under Applications Branches page to highlight the Protected and Un-protected branch count
-5) Added sorting for the Rule management columns for Global and Application level for ease of use.
-6) Introduced EXPLOITABLE SEVERITY COUNT configuration under Build Policy filter/rules
-7) Added latest scan status on the top level Application list under Application page for better user-experience.
-8) Added click functionality for OWASP Top 10, SANS Top 25, and Most Critical Vulnerabilities charts under Dashboard to show insights into the Application responsible for violation.
+1) Vulnerability Report Branch detail: We have added Branch name details under the Global Vulnerability Report for better insight into the report data.
+2) Application Report generation for Zero vulnerability: We have added the option to download the Application Report in the absence of vulnerabilities.
+3) Added "OWASP Top 10" and "SANS Top 25" labels: We have added the "OWASP Top 10" and "SANS Top 25" labels for the respective found vulnerabilities.
+4) Added filter option to get the "OWASP Top 10" and "SANS Top 25" vulnerabilities under Scan History: We have added the filter option to get the "OWASP Top 10" and "SANS Top 25" for found vulnerabilities for better usability.
+5) Added Excluded filter option and respective label for vulnerabilities removed after getting added to the "Excluded Path" setting: Added Excluded filter option and respective label for better user experience.
+6) Team Admins to have access to change the User Membership: We have provided the Team Admin the access to change its User membership to another team.
+7) AppUser to be able to raise a request to mark a vulnerability as False Positive: We have provided AppUser the access to request for a vulnerability to be marked as False Positive via approval.
+8) Added "Open Source" Report feature under Report drop-down menu: We have added the "Open Source" Report feature under Report to give better insights into the Vulnerability metrics.
+9) Added the Pull Request Build Policy Configuration: We have added the Pull Request Policy configuration for the Delta scan. 
 
 Improvements:
 
-1) Fixed the Comprehensive Report under application scan results page: We have fixed the Comprehensive Report under Application page.
+1) Fixed the False Positive marked vulnerability Expiration: We have fixed the False Positive marked vulnerability Expiration.
 2) Bug Fixing on Backend: Fixed bugs across the application for better user experience.
 3) Fixed list of UI issues.
-4) Improved latency issue under Application page for better user experience.
-5) Updated Audit logs and Import logs for better readability and correctness.
+4) Fixed Vulnerability Retest functionality.
+5) Fixed Scan History update on deleting an "Excluded File" from the Application Setting
+6) Fixed Vulnerability Page latency issues.
