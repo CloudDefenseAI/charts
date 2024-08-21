@@ -1,23 +1,21 @@
-Release Date : 30.07.2024
-Release Notes : 4.9.1
+Release Date : 20.08.2024
+Release Notes : 4.9.2
 
 New Features:
 
-1) Vulnerability Report Branch detail: We have added Branch name details under the Global Vulnerability Report for better insight into the report data.
-2) Application Report generation for Zero vulnerability: We have added the option to download the Application Report in the absence of vulnerabilities.
-3) Added "OWASP Top 10" and "SANS Top 25" labels: We have added the "OWASP Top 10" and "SANS Top 25" labels for the respective found vulnerabilities.
-4) Added filter option to get the "OWASP Top 10" and "SANS Top 25" vulnerabilities under Scan History: We have added the filter option to get the "OWASP Top 10" and "SANS Top 25" for found vulnerabilities for better usability.
-5) Added Excluded filter option and respective label for vulnerabilities removed after getting added to the "Excluded Path" setting: Added Excluded filter option and respective label for better user experience.
-6) Team Admins to have access to change the User Membership: We have provided the Team Admin the access to change its User membership to another team.
-7) AppUser to be able to raise a request to mark a vulnerability as False Positive: We have provided AppUser the access to request for a vulnerability to be marked as False Positive via approval.
-8) Added "Open Source" Report feature under Report drop-down menu: We have added the "Open Source" Report feature under Report to give better insights into the Vulnerability metrics.
-9) Added the Pull Request Build Policy Configuration: We have added the Pull Request Policy configuration for the Delta scan. 
+1) Jira ticket enhancement: We have added more details to the Jira ticket raised for vulnerability, providing recommendations, vulnerability path mapping, and severity mapping.
+2) Ability to rename Application name: We have added the ability to rename the Application name facilitating application management at the organization level to be more user-friendly.
+3) Added SAST recommendation for Application level report: We have also added recommendations for the SAST-type vulnerabilities under the Application report.
+4) Application Report Generation for Previous Scan History: We have added the facility to generate and download reports for previous scan histories at the application level.
+5) Branch-Specific Report Generation: We have added the facility to generate and download reports for scanned branches other than the default branch at the Application level for better user experience.
+6) Added column sorting for the Open Source page for CVE, CWE, and Libraries columns: We have provided column sorting for the Open Source page for CVE, CWE, and Libraries columns for ease of use.
 
 Improvements:
 
-1) Fixed the False Positive marked vulnerability Expiration: We have fixed the False Positive marked vulnerability Expiration.
+1) Fixed the New Exception Requested Field under Application Scan History for SCA vulnerabilities
 2) Bug Fixing on Backend: Fixed bugs across the application for better user experience.
 3) Fixed list of UI issues.
-4) Fixed Vulnerability Retest functionality.
-5) Fixed Scan History update on deleting an "Excluded File" from the Application Setting
-6) Fixed Vulnerability Page latency issues.
+4) Fixed addition of DAST vulnerabilities to allowed list for AppUser role.
+5) Fixed default branch name information for all new application scans
+6) Fixed AWS-S3 alert integration for weekly team-level report
+7) Fixed JavaScript Open fix PR issue.
