@@ -1,21 +1,21 @@
-Release Date : 20.08.2024
-Release Notes : 4.9.2
+Release Date : 10.09.2024
+Release Notes : 4.9.3
 
 New Features:
 
-1) Jira ticket enhancement: We have added more details to the Jira ticket raised for vulnerability, providing recommendations, vulnerability path mapping, and severity mapping.
-2) Ability to rename Application name: We have added the ability to rename the Application name facilitating application management at the organization level to be more user-friendly.
-3) Added SAST recommendation for Application level report: We have also added recommendations for the SAST-type vulnerabilities under the Application report.
-4) Application Report Generation for Previous Scan History: We have added the facility to generate and download reports for previous scan histories at the application level.
-5) Branch-Specific Report Generation: We have added the facility to generate and download reports for scanned branches other than the default branch at the Application level for better user experience.
-6) Added column sorting for the Open Source page for CVE, CWE, and Libraries columns: We have provided column sorting for the Open Source page for CVE, CWE, and Libraries columns for ease of use.
+1) Improved CLI scan response output: We have added details for the OSS license policy failure under the CLI scan output to provide user more insight.
+2) Added Custom Regex Support for Secret Scan: We have added the support for the custom regex for Secret Scan to eliminate the false positives, providing better user experience.
+3) Merged Team and Organization Report Page: We have merged the Organization Report and Team Report page to provide user consolidated view with flexible filters to configure the Report View.
+4) Improved Report Page performance: We have improved the Report page performance by reducing the response time latency for better user experience.
+5) Added the detail about who and when introduced the detected vulnerability : We have added the details about the user who introduced the detected vulnerability to provide more isight and track the issue correctly.
+6) Added details about the user initiating the scan under the Application page: We have provided details on the user that ran the scan and timestamp to provide more context into the scan run. User has capability to search for the latest scan run by user email.
 
 Improvements:
 
-1) Fixed the New Exception Requested Field under Application Scan History for SCA vulnerabilities
+1) Fixed the redirection of the Exploits reference links under Open Source Page
 2) Bug Fixing on Backend: Fixed bugs across the application for better user experience.
 3) Fixed list of UI issues.
-4) Fixed addition of DAST vulnerabilities to allowed list for AppUser role.
-5) Fixed default branch name information for all new application scans
-6) Fixed AWS-S3 alert integration for weekly team-level report
-7) Fixed JavaScript Open fix PR issue.
+4) Limited the number of default team to one.
+5) Fixed SANS Top 25 result opening error under dashboard.
+6) Fixed Search filter for the Open Source Report page
+7) Improved the latency issues under the Application Page scan result expansion.
