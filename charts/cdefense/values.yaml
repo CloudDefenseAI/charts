@@ -80,7 +80,7 @@ authservice:
   tolerations: []
   replicas: 1
   image: cdefense/auth-service
-  environment: dev
+  environment: prod
   realm: cdefense
   service:
     type: NodePort
