@@ -323,11 +323,6 @@ spec:
             secretKeyRef:
               name: vulnscrape-secrets
               key: VULNERABILITY_SCRAPER_SERVICE_TOKEN
-        - name: DATAJOB_WEBHOOK_URL
-          valueFrom:
-            configMapKeyRef:
-              name: scan-server-config
-              key: DATAJOB_WEBHOOK_URL
         - name: NVD_KEY
           valueFrom:
             secretKeyRef:
@@ -338,6 +333,21 @@ spec:
             configMapKeyRef:
               name: authservice-config
               key: MICRONAUT_ENVIRONMENTS
+        - name: CLOUDDEFENSE_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: CLOUDDEFENSE_BASE_URL
+        - name: OUTSIDE
+          valueFrom:
+            configMapKeyRef:
+                name: cdefense-config
+                key: OUTSIDE
+        - name: VFEED_SYNC_JOB_CRON_EXPRESSION
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: DATA_VFEED_SQLITE_FULL_REFRESH_CRON_EXPRESSION
         ports:
         - containerPort: 8080
         livenessProbe:
