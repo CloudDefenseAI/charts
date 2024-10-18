@@ -331,7 +331,7 @@ spec:
         - name: MICRONAUT_ENVIRONMENTS
           valueFrom:
             configMapKeyRef:
-              name: authservice-config
+              name: scan-server-config
               key: MICRONAUT_ENVIRONMENTS
         - name: CLOUDDEFENSE_BASE_URL
           valueFrom:

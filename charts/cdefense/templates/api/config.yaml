@@ -37,3 +37,4 @@ data:
   DATAJOB_WEBHOOK_URL: "https://discord.com/api/webhooks/1006160865386582077/HndjuqofW-wYXspUb5_iv-AJN46UojZZvQDksz1a2cgvx1Q1lUJkdZ_IhZrlsh_ytKKO"
   PROFILER_WEBHOOK_URL: "https://discord.com/api/webhooks/1102883054806114375/DwZqyzMTpYf66kMyQ47b7lgFLNFGfqmxQxEBfnfOZtH6cMJIFzoNw17pmQnG9OmNk9Tv"
   CLOUDDEFENSE_SENDGRID_EMAIL: "support-noreply@clouddefense.ai" 
+  MICRONAUT_ENVIRONMENTS: {{ .Values.api.environment | default "dev"  }}
