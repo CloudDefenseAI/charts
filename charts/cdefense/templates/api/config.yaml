@@ -36,5 +36,7 @@ data:
   K8_RESOURCES_LIMIT_MEMORY: {{ .Values.api.job.resource.memory.limit }}
   DATAJOB_WEBHOOK_URL: "https://discord.com/api/webhooks/1006160865386582077/HndjuqofW-wYXspUb5_iv-AJN46UojZZvQDksz1a2cgvx1Q1lUJkdZ_IhZrlsh_ytKKO"
   PROFILER_WEBHOOK_URL: "https://discord.com/api/webhooks/1102883054806114375/DwZqyzMTpYf66kMyQ47b7lgFLNFGfqmxQxEBfnfOZtH6cMJIFzoNw17pmQnG9OmNk9Tv"
+  STATISTIC_WEBHOOK_URL: "https://discord.com/api/webhooks/1121016075799253063/6dAOW8JvKo3rHudlcwtcNFR0gMfLvfIWFFTAQTXxORwML7Y58RzDBjfjztqa9DZ6WmXw"
   CLOUDDEFENSE_SENDGRID_EMAIL: "support-noreply@clouddefense.ai" 
   MICRONAUT_ENVIRONMENTS: {{ .Values.api.environment | default "dev"  }}
+  ALERT_SERVICE_URL: "http://alertservice"

@@ -96,11 +96,6 @@ spec:
               secretKeyRef:
                 name: keycloak-secrets
                 key: KEYCLOAK_ADMIN_CLIENT_SECRET
-          - name: MICRONAUT_ENVIRONMENTS
-            valueFrom:
-              configMapKeyRef:
-                name: authservice-config
-                key: MICRONAUT_ENVIRONMENTS
           - name: CLOUDDEFENSE_AUTH_DEPLOYMENT_MODE_DOCKER
             valueFrom:
               configMapKeyRef:
@@ -182,6 +177,16 @@ spec:
               secretKeyRef:
                 name: graphql-secrets
                 key: HASURA_GRAPHQL_ADMIN_SECRET
+          - name: SECRET_HEADER_VALUE
+            valueFrom:
+              secretKeyRef:
+                key: ATTACK_PATH_KEY
+                name: cdefense-secrets
+          - name: DOMAIN
+            valueFrom:
+              configMapKeyRef:
+                name: authservice-config
+                key: DOMAIN
           ports:
           - containerPort: 8080
           livenessProbe:

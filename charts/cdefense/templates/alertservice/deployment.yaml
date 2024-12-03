@@ -53,6 +53,16 @@ spec:
             configMapKeyRef:
               name: cdefense-config
               key: CLOUDDEFENSE_BASE_URL
+        - name: SECRET_HEADER_VALUE
+          valueFrom:
+            secretKeyRef:
+              key: ATTACK_PATH_KEY
+              name: cdefense-secrets
+        - name: CLOUDDEFENSE_SENDGRID_EMAIL
+          valueFrom:
+            configMapKeyRef:
+              key: CLOUDDEFENSE_SENDGRID_EMAIL
+              name: scan-server-config
         # livenessProbe:
         #   tcpSocket:
         #     port: 8080

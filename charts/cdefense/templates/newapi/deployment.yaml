@@ -65,6 +65,11 @@ spec:
             configMapKeyRef:
                 name: scan-server-config
                 key: CLOUDDEFENSE_NEWAPI_BASE_URL
+        - name: ATTACK_PATH_KEY
+          valueFrom:
+            secretKeyRef:
+              key: ATTACK_PATH_KEY
+              name: cdefense-secrets
         ports:
         - containerPort: 8080
         livenessProbe:

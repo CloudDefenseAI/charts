@@ -1,4 +1,4 @@
-version: "release-4.9.3"
+version: "release-4.9.4"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -110,8 +110,8 @@ api:
     image: cdefense/fullscan
   data:
     region: us-east-1
-    bucket: cdefense-vulnerability-data-new
-    endpoint: https://cdefense-vulnerability-data-new.s3.us-east-1.amazonaws.com
+    bucket: cdefense-vulnerability-new-data
+    endpoint: https://cdefense-vulnerability-new-data.s3.us-east-1.amazonaws.com
   vuln:
     host: "https://vuln-console.clouddefenseai.com"
   logs:

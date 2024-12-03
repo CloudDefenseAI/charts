@@ -348,6 +348,21 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: DATA_VFEED_SQLITE_FULL_REFRESH_CRON_EXPRESSION
+        - name: SECRET_HEADER_VALUE
+          valueFrom:
+            secretKeyRef:
+              key: ATTACK_PATH_KEY
+              name: cdefense-secrets
+        - name: ALERT_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: ALERT_SERVICE_URL
+        - name: ATTACK_PATH_KEY
+          valueFrom:
+            secretKeyRef:
+              key: ATTACK_PATH_KEY
+              name: cdefense-secrets
         ports:
         - containerPort: 8080
         livenessProbe:

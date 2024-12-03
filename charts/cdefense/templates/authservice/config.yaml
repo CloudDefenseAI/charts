@@ -5,6 +5,6 @@ metadata:
   labels:
     app: keycloak
 data:
-  MICRONAUT_ENVIRONMENTS: {{ .Values.authservice.environment | default "dev"  }}
   AUTH_DEPLOYMENT_MODE_DOCKER: "true"
   NEW_RELIC_APP_NAME: cdefense
+  DOMAIN: "cdefense.clouddefenseai.com"

@@ -1,4 +1,3 @@
-{{ if .Values.alertservice.enabled }}
 ---
 apiVersion: v1
 kind: Service
@@ -12,4 +11,3 @@ spec:
     app: alertservice
   ports:
     {{- .Values.alertservice.service.ports | toYaml | nindent 2 -}}
-{{ end }}
