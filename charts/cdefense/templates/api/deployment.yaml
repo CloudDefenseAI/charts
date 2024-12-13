@@ -57,6 +57,11 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: API_SCAN_DOCKER_IMAGE
+        - name: CUSTOM_ALLOWED_ORIGIN
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: CUSTOM_ALLOWED_ORIGIN
         - name: FULL_SCAN_DOCKER_IMAGE
           valueFrom:
             configMapKeyRef:
