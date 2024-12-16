@@ -108,6 +108,7 @@ api:
     bucket: cdefense-dast-curl
   fullscan:
     image: cdefense/fullscan
+  origin: "https://cdefense.clouddefenseai.com"
   data:
     region: us-east-1
     bucket: cdefense-vulnerability-new-data

@@ -109,7 +109,7 @@ spec:
           - name: CUSTOM_ALLOWED_ORIGIN
             valueFrom:
               configMapKeyRef:
-                name: authservice-config
+                name: scan-server-config
                 key: CUSTOM_ALLOWED_ORIGIN
           - name: CLOUDDEFENSE_EMAIL_SENDGRID_KEY
             valueFrom:

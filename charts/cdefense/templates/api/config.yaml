@@ -40,4 +40,4 @@ data:
   CLOUDDEFENSE_SENDGRID_EMAIL: "support-noreply@clouddefense.ai" 
   MICRONAUT_ENVIRONMENTS: {{ .Values.api.environment | default "dev"  }}
   ALERT_SERVICE_URL: "http://alertservice"
-  CUSTOM_ALLOWED_ORIGIN: "https://cdefense.clouddefenseai.com"
+  CUSTOM_ALLOWED_ORIGIN: {{ .Values.api.origin | default "https://cdefense.clouddefenseai.com" }}
