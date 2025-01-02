@@ -41,3 +41,4 @@ data:
   MICRONAUT_ENVIRONMENTS: {{ .Values.api.environment | default "dev"  }}
   ALERT_SERVICE_URL: "http://alertservice"
   CUSTOM_ALLOWED_ORIGIN: {{ .Values.api.origin | default "https://cdefense.clouddefenseai.com" }}
+  NODEJS_SERVER: "http://pdf-generator/"

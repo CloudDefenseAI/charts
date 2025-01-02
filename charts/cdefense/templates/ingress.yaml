@@ -71,6 +71,13 @@ spec:
             name: keycloak
             port:
               number: 80
+      - path: /pdfGenerator/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: pdf-generator
+            port:
+              number: 80
       - path: /cd-auth/*
         pathType: ImplementationSpecific
         backend:

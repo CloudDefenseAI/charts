@@ -1,4 +1,4 @@
-version: "release-4.9.4"
+version: "release-4.9.5"
 domain: clouddefenseai.com
 hostname: cdefense.clouddefenseai.com
 
@@ -210,3 +210,33 @@ ai:
     maxReplicas: 3
     targetCPUUtilizationPercentage: 80
     targetMemoryUtilizationPercentage: 80
+
+pdfgenerator:
+  enabled: true
+  nodeSelector: cdefense
+  tolerations: []
+  replicas: 1
+  image: cdefense/pdf-generator-service
+  version: "prod"
+  resources:
+    requests:
+      memory: "750Mi"
+      cpu: "250m"
+    limits:
+      memory: "1300Mi"
+      # cpu: "50m"
+  service:
+    type: NodePort
+    ports:
+      - port: 80
+        targetPort: 3000
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 100
+    targetMemoryUtilizationPercentage: 100
+    scaleUpstabilizationWindowSeconds: 30
+    scaleUpvalue: 1
+    scaleDownstabilizationWindowSeconds: 20
+    scaleDownvalue: 1

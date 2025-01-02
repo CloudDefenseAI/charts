@@ -1,23 +1,15 @@
-Release Date : 11.11.2024
-Release Notes : 4.9.4
+Release Date : 17.12.2024
+Release Notes : 4.9.5
 
 New Features:
 
-1) Added Schedule scan support for DAST and API scan: We have added schedule scan support for DAST and API scan, providing better user experience.
-2) Introduced License report: We have added license report for centralized tracking of utilization metrics.
-3) Added Scan Type filter at Application Page: We have added Scan Type filter at Application Page for better user experience.
-4) Moved Team Selector to side filter: We have removed the team selector from page header and moved it under side filter for better accessibility and uniformity.
-5) Combined Generic API key and Personal API key for better manageability.
-6) Captcha v3 Integration on SignUp: Added Google reCAPTCHA v3 to the sign-up process to enhance security and prevent bot registrations.
-7) OTP Verification for Password: Implemented OTP validation to verify user identity before allowing password changes.
-8) Recover deleted application: We have provided facility to recover deleted application within 15 days to avoid accidental information loss.
-
+1) Azure Container Registry Integration: We have introduced integration with Azure Container Registry (ACR), enabling seamless scanning functionality for enhanced container security.
+2) Google Artifact Registry Integration: Added integration and scanning functionality for Google Artifact Registry, ensuring broader support for artifact repositories.
+3) Graphical Widgets in Weekly Organization Report: Improved the Weekly Organization Report with graphical widgets for enhanced reporting and a more user-friendly visualization experience..
+4) Enhanced OSS Scan License for CLI: The OSS Scan License now includes additional information in the CLI version for more detailed and actionable reporting.
 Improvements:
 
-1) Updated the Azure devops access token request access level.
-2) Bug Fixing on Backend: Fixed bugs across the application for better user experience.
-3) Fixed list of UI issues.
-4) Fixed report genration under Scan history
-5) Updated the rule mappings with OWASP top 10 and SANS top 25 standard.
-6) Removed error message shown on session logout.
-7) Fixed automated container image scan.
+1) Tighter User Privilege Controls: Implemented tighter restrictions on the actions each user role can perform across the platform.
+2) Revamped Email Templates: Redesigned email templates to provide more targeted and relevant information for users, ensuring clearer and more effective communication.
+3) Bug Fixing on Backend: Fixed bugs across the application for better user experience.
+4) Fixed list of UI issues.

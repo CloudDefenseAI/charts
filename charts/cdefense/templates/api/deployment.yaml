@@ -363,6 +363,11 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: ALERT_SERVICE_URL
+        - name: NODEJS_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key: NODEJS_SERVER
         - name: ATTACK_PATH_KEY
           valueFrom:
             secretKeyRef:

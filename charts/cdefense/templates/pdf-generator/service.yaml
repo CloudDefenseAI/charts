@@ -1,0 +1,16 @@
+{{ if .Values.pdfgenerator.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pdf-generator
+  labels:
+    app: pdf-generator
+spec:
+  type: {{ .Values.pdfgenerator.service.type }}
+  selector:
+    app: pdf-generator
+  ports:
+    {{- .Values.pdfgenerator.service.ports | toYaml | nindent 2 -}}
+    
+{{ end }}
