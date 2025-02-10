@@ -1,0 +1,16 @@
+{{ if .Values.aisast.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-sast
+  labels:
+    app: ai-sast
+spec:
+  type: {{ .Values.aisast.service.type }}
+  selector:
+    app: ai-sast
+  ports:
+    {{- .Values.aisast.service.ports | toYaml | nindent 2 -}}
+    
+{{ end }}

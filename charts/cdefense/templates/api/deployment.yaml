@@ -318,6 +318,28 @@ spec:
             configMapKeyRef:
               key: AWS_DAST_UPLOAD_S3_BUCKET
               name: scan-server-config
+        - name: AWS_API_UPLOAD_S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_API_UPLOAD_S3_ACCESS_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_API_UPLOAD_S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_API_UPLOAD_S3_SECRET_KEY
+              name: scan-server-secrets
+              optional: true
+        - name: AWS_API_UPLOAD_S3_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key:  AWS_API_UPLOAD_S3_BUCKET
+        - name: AWS_API_UPLOAD_S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key:  AWS_API_UPLOAD_S3_REGION
         - name: VULNERABILITY_SCRAPER_SERVICE_HOST
           valueFrom:
             configMapKeyRef:

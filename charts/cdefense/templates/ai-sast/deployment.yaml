@@ -1,0 +1,77 @@
+{{ if .Values.aisast.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-sast
+  namespace: {{ .Release.Namespace | default "default"}}
+spec:
+  selector:
+    matchLabels:
+      app: ai-sast
+  # replicas: {{ .Values.aisast.replicas }}
+  strategy:
+    type: Recreate
+    # type: RollingUpdate
+    # rollingUpdate:
+    #   maxUnavailable: 0%
+    #   maxSurge: 25%
+  template:
+    metadata:
+      labels:
+        app: ai-sast
+    spec:
+      {{- if .Values.aisast.nodeSelector }}
+      nodeSelector:
+        label: {{ .Values.aisast.nodeSelector }}
+      {{- end }}
+      {{- if .Values.aisast.tolerations }}
+      tolerations:
+{{ toYaml .Values.aisast.tolerations | indent 8 }}
+      {{- end }}
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: ai-sast
+        image: {{ .Values.aisast.image }}:{{ .Values.version }}
+        imagePullPolicy: Always
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: OPENAI_API_KEY
+              name: cdefense-secrets
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+                name: cdefense-config
+                key: DB_USER
+        - name: AI_SAST_RESULT_URL
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: AI_SAST_RESULT_URL
+        - name: AI_SAST_SERVICE_POD_NAMESPACE
+          valueFrom:
+            configMapKeyRef:
+              name: cdefense-config
+              key: AI_SAST_SERVICE_POD_NAMESPACE
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: DB_PASSWORD
+              name: cdefense-secrets
+        # resources:
+        #     requests:
+        #       memory: {{ .Values.aisast.resources.requests.memory}}
+        #       cpu: {{ .Values.aisast.resources.requests.cpu }}
+        #     limits:
+        #       memory: {{ .Values.aisast.resources.limits.memory}}
+        #       cpu: {{ .Values.aisast.resources.limits.cpu }}
+
+{{ end }}

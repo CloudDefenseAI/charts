@@ -75,3 +75,4 @@ data:
   CUSTOM_VENDOR: ""
   GPT_BASE_URL: "http://ai/"
   OUTSIDE : "https://cdefense.clouddefenseai.com"
+  AI_SAST_RESULT_URL: http://api/scan/ai-sast

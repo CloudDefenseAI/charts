@@ -34,8 +34,8 @@ data:
   K8_RESOURCES_REQUEST_MEMORY: {{ .Values.api.job.resource.memory.request }}
   K8_RESOURCES_REQUEST_CPU: {{ .Values.api.job.resource.cpu.request }}
   K8_RESOURCES_LIMIT_MEMORY: {{ .Values.api.job.resource.memory.limit }}
-  DATAJOB_WEBHOOK_URL: "https://discord.com/api/webhooks/1006160865386582077/HndjuqofW-wYXspUb5_iv-AJN46UojZZvQDksz1a2cgvx1Q1lUJkdZ_IhZrlsh_ytKKO"
-  PROFILER_WEBHOOK_URL: "https://discord.com/api/webhooks/1102883054806114375/DwZqyzMTpYf66kMyQ47b7lgFLNFGfqmxQxEBfnfOZtH6cMJIFzoNw17pmQnG9OmNk9Tv"
+  # DATAJOB_WEBHOOK_URL: "https://discord.com/api/webhooks/1006160865386582077/HndjuqofW-wYXspUb5_iv-AJN46UojZZvQDksz1a2cgvx1Q1lUJkdZ_IhZrlsh_ytKKO"
+  PROFILER_WEBHOOK_URL: "https://discord.com/api/webhooks/1327287754400464907/Qw7BNZeb_baPqxy-aKBG7VfWXSSdwHvUoPcahrurG6bCxGBnfaYu8iiJWdpKVXACTial"
   STATISTIC_WEBHOOK_URL: "https://discord.com/api/webhooks/1121016075799253063/6dAOW8JvKo3rHudlcwtcNFR0gMfLvfIWFFTAQTXxORwML7Y58RzDBjfjztqa9DZ6WmXw"
   CLOUDDEFENSE_SENDGRID_EMAIL: "support-noreply@clouddefense.ai" 
   MICRONAUT_ENVIRONMENTS: {{ .Values.api.environment | default "dev"  }}
@@ -43,3 +43,6 @@ data:
   CUSTOM_ALLOWED_ORIGIN: {{ .Values.api.origin | default "https://cdefense.clouddefenseai.com" }}
   NODEJS_SERVER: "http://pdf-generator/"
   AI_SAST_API_URL: "http://ai-sast"
+  DATAJOB_WEBHOOK_URL: "https://discord.com/api/webhooks/1329072846584152136/jeAtA2by8dvd0exqSfX-rtBRdGO6Y-K1K-tx0y4PP16zFYbCP7Uj7Hc61fpXwfEzA15L"
+  AWS_API_UPLOAD_S3_BUCKET: "cdefense-api-swagger"
+  AWS_API_UPLOAD_S3_REGION: "us-west-2"
