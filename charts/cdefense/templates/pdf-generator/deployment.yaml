@@ -33,7 +33,7 @@ spec:
       - name: regcred
       containers:
       - name: pdf-generator
-        image: {{ .Values.pdfgenerator.image }}:{{ .Values.pdfgenerator.version }}
+        image: {{ .Values.pdfgenerator.image }}:{{ .Values.version }}
         imagePullPolicy: Always
         # resources:
         #     requests:

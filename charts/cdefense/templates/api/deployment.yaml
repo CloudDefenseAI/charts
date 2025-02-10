@@ -368,6 +368,11 @@ spec:
             configMapKeyRef:
               name: scan-server-config
               key: NODEJS_SERVER
+        - name: AI_SAST_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: scan-server-config
+              key:  AI_SAST_API_URL
         - name: ATTACK_PATH_KEY
           valueFrom:
             secretKeyRef:

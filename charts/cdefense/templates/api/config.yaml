@@ -42,3 +42,4 @@ data:
   ALERT_SERVICE_URL: "http://alertservice"
   CUSTOM_ALLOWED_ORIGIN: {{ .Values.api.origin | default "https://cdefense.clouddefenseai.com" }}
   NODEJS_SERVER: "http://pdf-generator/"
+  AI_SAST_API_URL: "http://ai-sast"
