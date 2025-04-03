@@ -26,6 +26,8 @@ Confirming pre-requisites (How will you know that K8S is installed?):
 2. Here is a command to check if your K8S can access your Postgres DB : `pg_isready -d <db_name> -h <host_name> -p <port_number> -U <db_user>`
 3. Here is a command to check if load balancer controller is installed in the EKS cluster: `kubectl get deployment -n kube-system aws-load-balancer-controller`
 4. Here is a command to check if your K8S can connect to the internet : `kubectl get ingress` and check the address column in the output if the values are generated
+5. Here is a command to check pod to pod communication inside K8S cluster: kubectl exec -it <source-pod> -- ping <destination-pod-IP>
+
 
 ### Warnings
 
