@@ -10,8 +10,8 @@ Required Skills/Person:
 ## Pre-requisites for a cdefense installation on-premises
 
 1. A Managed Postgres instance (for ex. AWS RDS db.r5.large) (Postgres is a Relational DB. Learn more about what is Postgres: https://www.postgresql.org/)
-    1. enable automated backups
-2. A Kubernetes cluster (EKS/GKE/AKS) that has access to the above DB and to the internet (/examples/eks) with at least two nodegroups. (Learn more about what is Kubernetes: https://kubernetes.io/)
+    1. enable automated backups for the RDS
+2. A Kubernetes cluster (EKS/GKE/AKS) that has access to the above DB and to the internet with at least two nodegroups. (Learn more about what is Kubernetes: https://kubernetes.io/)
     1. node group for jobs
         1. each node has { label: job }
     2. node group for application pods
@@ -19,12 +19,12 @@ Required Skills/Person:
     3. Access to the internet by installing Ingress controller. Doc: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html 
 3. A cluster auto-scaler should be installed for nodes auto scaling.
 4. kubectl, helm packages needs to be installed.
-Excel sheet with minimum infrastructure requirements: https://docs.google.com/spreadsheets/d/13R4DrVM6CfEgrlf3A7XDCrTNo8Aqq8DPU3Ne7FtHlgw/edit?usp=sharing
+5. Excel sheet with minimum infrastructure requirements: https://docs.google.com/spreadsheets/d/13R4DrVM6CfEgrlf3A7XDCrTNo8Aqq8DPU3Ne7FtHlgw/edit?usp=sharing
 
 Confirming pre-requisites (How will you know that K8S is ready for helm installation): 
 1. Here is a K8S command to check if your K8S cluster is up and running : `kubectl get nodes`
-2. Here is a command to check if your K8S can access your Postgres DB : `pg_isready -d <db_name> -h <host_name> -p <port_number> -U <db_user>
-   - if postgres is not accessible check the rds security groups and the cluster security groups for the ports and any blocker from firewall`
+2. Here is a command to check if your K8S can access your Postgres DB : `pg_isready -d <db_name> -h <host_name> -p <port_number> -U <db_user>`
+   - if postgres is not accessible check the rds security groups and the cluster security groups for the ports and any blocker from firewall
 4. Here is a command to check if load balancer controller is installed in the EKS cluster: `kubectl get deployment -n kube-system aws-load-balancer-controller`
 5. Here is a command to check if your K8S can connect to the internet : `kubectl get ingress` and check the address column in the output if the values are generated
 6. Here is a command to check pod to pod communication inside K8S cluster: `kubectl exec -it <source-pod> -- ping <destination-pod-IP>`
